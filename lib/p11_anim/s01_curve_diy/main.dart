@@ -1,12 +1,16 @@
-/// create by 张风捷特烈 on 2020/11/3
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+
+/// create by 张风捷特烈 on 2020/11/1
 /// contact me by email 1981462002@qq.com
-/// 说明: 
+/// 说明:
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-import 'rouler_chooser.dart';
+import 'curve_box.dart';
 
 void main() {
   // 确定初始化
@@ -32,9 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           body: Center(
-            child: RulerChooser(
-
-            ),
+            child: CurveBox(curve: Cubic(1, -0.06, 0.1, 1.2),),
           ),
         ));
   }

@@ -1,12 +1,7 @@
-/// create by 张风捷特烈 on 2020/11/3
-/// contact me by email 1981462002@qq.com
-/// 说明: 
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
-import 'rouler_chooser.dart';
+import 'screen.dart';
 
 void main() {
   // 确定初始化
@@ -20,22 +15,20 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          body: Center(
-            child: RulerChooser(
-
-            ),
-          ),
-        ));
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(child: Screen()),
+      ),
+    );
   }
 }
+

@@ -10,6 +10,7 @@ class Coordinate {
   final double strokeWidth;
   final Color axisColor;
   final Color gridColor;
+  final TextPainter _textPainter = TextPainter(textDirection: TextDirection.ltr);
 
   Coordinate(
       {this.step = 20,
@@ -74,23 +75,27 @@ class Coordinate {
     canvas.drawPath(_gridPath, _gridPaint);
   }
 
-  void _simpleDrawText(Canvas canvas, String str,
-      {Offset offset = Offset.zero, Color color = Colors.black}) {
-    var builder = ui.ParagraphBuilder(ui.ParagraphStyle(
-      textAlign: TextAlign.left,
-      fontSize: 11,
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-    ))
-      ..pushStyle(
-        ui.TextStyle(color: color, textBaseline: ui.TextBaseline.alphabetic),
-      )
-      ..addText(str);
+  void _drawAxisText(Canvas canvas, String str,
+      {Color color = Colors.black, bool x = false}) {
+    TextSpan text = TextSpan(
+        text: str,
+        style: TextStyle(
+          fontSize: 11,
+          color: color,
+        ));
 
-    canvas.drawParagraph(
-        builder.build()
-          ..layout(ui.ParagraphConstraints(width: 11.0 * str.length)),
-        offset);
+    _textPainter.text = text;
+    _textPainter.layout(); // 进行布局
+    Size size = _textPainter.size;
+    Offset offset = Offset.zero;
+    if (x == null) {
+      offset = Offset(-size.width*1.5, size.width*0.7);
+    } else if (x) {
+      offset = Offset(-size.width / 2, size.height / 2);
+    } else {
+      offset = Offset(size.height / 2, -size.height / 2 + 2);
+    }
+    _textPainter.paint(canvas, offset);
   }
 
   void _drawText(Canvas canvas, Size size) {
@@ -102,8 +107,7 @@ class Coordinate {
         continue;
       } else {
         var str = (i * step).toInt().toString();
-        _simpleDrawText(canvas, str,
-            offset: Offset(8, -8), color: Colors.green);
+        _drawAxisText(canvas, str, color: Colors.green);
       }
       canvas.translate(0, step);
     }
@@ -113,7 +117,7 @@ class Coordinate {
     canvas.save();
     for (int i = 0; i < size.width / 2 / step; i++) {
       if (i == 0) {
-        _simpleDrawText(canvas, "O", offset: Offset(8, 8), color: Colors.black);
+        _drawAxisText(canvas, "O", color: Colors.black, x: null);
         canvas.translate(step, 0);
         continue;
       }
@@ -122,8 +126,7 @@ class Coordinate {
         continue;
       } else {
         var str = (i * step).toInt().toString();
-        _simpleDrawText(canvas, str,
-            offset: Offset(-8, 8), color: Colors.green);
+        _drawAxisText(canvas, str, color: Colors.green, x: true);
       }
       canvas.translate(step, 0);
     }
@@ -137,8 +140,7 @@ class Coordinate {
         continue;
       } else {
         var str = (-i * step).toInt().toString();
-        _simpleDrawText(canvas, str,
-            offset: Offset(8, -8), color: Colors.green);
+        _drawAxisText(canvas, str, color: Colors.green);
       }
 
       canvas.translate(0, -step);
@@ -153,8 +155,7 @@ class Coordinate {
         continue;
       } else {
         var str = (-i * step).toInt().toString();
-        _simpleDrawText(canvas, str,
-            offset: Offset(-8, 8), color: Colors.green);
+        _drawAxisText(canvas, str, color: Colors.green, x: true);
       }
       canvas.translate(-step, 0);
     }
