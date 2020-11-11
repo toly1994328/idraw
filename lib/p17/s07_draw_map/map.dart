@@ -43,7 +43,7 @@ class _ChinaMapState extends State<ChinaMap> {
       builder: (context, async) {
         if (async.hasData) {
           return CustomPaint(
-            size: Size(500, 400),
+            size: Size(700, 600),
             painter: MapPainter(mapRoot: async.data),
           );
         } else {
@@ -75,8 +75,8 @@ class MapPainter extends CustomPainter {
     canvas.translate(-mapRoot.features[0].geometry.coordinates[0][0][0].dx,
         -mapRoot.features[0].geometry.coordinates[0][0][0].dy);
 
-    canvas.translate(-560, 250);
-    canvas.scale(6.5, -7.5);
+    canvas.translate(-700, 320);
+    canvas.scale(8, -10.5);
 
     _drawMap(canvas, size);
   }
@@ -88,10 +88,11 @@ class MapPainter extends CustomPainter {
       var features = mapRoot.features[i];
       PaintingStyle style;
       Color color;
-
+      print('-----${features.properties.name}---------');
       Path path = Path();
       if (features.properties.name == "台湾省" ||
           features.properties.name == "海南省" ||
+          features.properties.name == "河北省" ||
           features.properties.name == "") { //海南和台湾和九段线
         features.geometry.coordinates.forEach((List<List<Offset>> lv3) {
           lv3.forEach((List<Offset> lv2) {
@@ -106,7 +107,7 @@ class MapPainter extends CustomPainter {
           style = PaintingStyle.stroke;
           color = Colors.black;
         } else {
-          style = PaintingStyle.stroke;
+          style = PaintingStyle.fill;
           color = colors[colorIndex % 4];
         }
         colorIndex++;
@@ -116,7 +117,7 @@ class MapPainter extends CustomPainter {
         for (Offset d in features.geometry.coordinates.first.first) {
           path.lineTo(d.dx, d.dy);
         }
-        style = PaintingStyle.stroke;
+        style = PaintingStyle.fill;
         color = colors[colorIndex % 4];
         colorIndex++;
       }
