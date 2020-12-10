@@ -66,6 +66,7 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
       duration: widget.duration,
       vsync: this,
     )..repeat();
+
   }
 
   @override
@@ -76,17 +77,17 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
 
   @override
   Widget build(BuildContext context) {
-    return  CustomPaint(
-        size: widget.size,
-        painter: PaperPainter(
-            waveHeight: widget.waveHeight,
-            secondAlpha: widget.secondAlpha,
-            color: widget.color,
-            borderRadius: widget.borderRadius,
-            isOval: widget.isOval,
-            progress: widget.progress,
-            strokeWidth: widget.strokeWidth,
-            repaint: CurveTween(curve: widget.curve).animate(_controller)),
+    return   CustomPaint(
+          size: widget.size,
+          painter: PaperPainter(
+              waveHeight: widget.waveHeight,
+              secondAlpha: widget.secondAlpha,
+              color: widget.color,
+              borderRadius: widget.borderRadius,
+              isOval: widget.isOval,
+              progress: widget.progress,
+              strokeWidth: widget.strokeWidth,
+              repaint: CurveTween(curve: widget.curve).animate(_controller)),
     );
   }
 }
@@ -96,8 +97,7 @@ class PaperPainter extends CustomPainter {
 
   PaperPainter({this.repaint, this.waveHeight, this.color,
     this.progress, this.secondAlpha, this.borderRadius, this.isOval,
-    this.strokeWidth}) : super(repaint: repaint){
-  }
+    this.strokeWidth}) : super(repaint: repaint);
 
   final double waveHeight;
   final double progress;
@@ -114,6 +114,12 @@ class PaperPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // 由于 使用 repaint 触发更新 path 和 _mainPath 不会重新创建
+    // 而导致刷新时不断为 path 和 _mainPath 添加路径，导致路径非常庞大，越来越卡，而掉帧
+    // 处理方案一: 绘制前 重置 path 或者
+    // 处理方案二: 不将 path 设为成员变量，每次绘制都新建 Path 对象，这样会造成大量 Path 对象创建，测试发现两种方案结果差不多。
+    path.reset();
+    _mainPath.reset();
 
     waveWidth = size.width / 2;
     wrapHeight = size.height;
