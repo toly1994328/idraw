@@ -1,4 +1,4 @@
-import 'dart:math';
+  import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -65,8 +65,7 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
     _controller = AnimationController(
       duration: widget.duration,
       vsync: this,
-    )
-      ..repeat();
+    )..repeat();
   }
 
   @override
@@ -77,17 +76,17 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: widget.size,
-      painter: PaperPainter(
-          waveHeight: widget.waveHeight,
-          secondAlpha: widget.secondAlpha,
-          color: widget.color,
-          borderRadius: widget.borderRadius,
-          isOval: widget.isOval,
-          progress: widget.progress,
-          strokeWidth: widget.strokeWidth,
-          repaint: CurveTween(curve: widget.curve).animate(_controller)),
+    return  CustomPaint(
+        size: widget.size,
+        painter: PaperPainter(
+            waveHeight: widget.waveHeight,
+            secondAlpha: widget.secondAlpha,
+            color: widget.color,
+            borderRadius: widget.borderRadius,
+            isOval: widget.isOval,
+            progress: widget.progress,
+            strokeWidth: widget.strokeWidth,
+            repaint: CurveTween(curve: widget.curve).animate(_controller)),
     );
   }
 }
@@ -97,7 +96,8 @@ class PaperPainter extends CustomPainter {
 
   PaperPainter({this.repaint, this.waveHeight, this.color,
     this.progress, this.secondAlpha, this.borderRadius, this.isOval,
-    this.strokeWidth}) : super(repaint: repaint);
+    this.strokeWidth}) : super(repaint: repaint){
+  }
 
   final double waveHeight;
   final double progress;
@@ -106,7 +106,7 @@ class PaperPainter extends CustomPainter {
   final int secondAlpha;
   final double borderRadius;
   final bool isOval;
-
+  Path path = Path();
   Paint _mainPaint = Paint();
   Path _mainPath = Path();
   double waveWidth = 0;
@@ -114,11 +114,12 @@ class PaperPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+
     waveWidth = size.width / 2;
     wrapHeight = size.height;
 
     _mainPaint..strokeWidth = strokeWidth..style = PaintingStyle.stroke..color = color;
-    Path path = Path();
+
     if (!isOval) {
       path.addRRect(RRect.fromRectXY(Offset(0, 0) & size, borderRadius, borderRadius));
       canvas.clipPath(path);
@@ -130,8 +131,7 @@ class PaperPainter extends CustomPainter {
       canvas.drawPath(path, _mainPaint);
     }
 
-    canvas.translate(0, wrapHeight + waveHeight);
-    canvas.translate(-4 * waveWidth + 2 * waveWidth * repaint.value, 0);
+    canvas.translate(-4 * waveWidth + 2 * waveWidth * repaint.value, wrapHeight + waveHeight);
     drawWave(canvas);
     canvas.drawPath(_mainPath, _mainPaint..style = PaintingStyle.fill..color = color);
 

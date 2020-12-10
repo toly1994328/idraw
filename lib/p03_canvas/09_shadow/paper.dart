@@ -42,17 +42,36 @@ class PaperPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    coordinate.paint(canvas, size);
+    // coordinate.paint(canvas, size);
     canvas.translate(size.width / 2, size.height / 2);
 
-    Path path = Path();
-    path.lineTo(80, 80);
-    path.lineTo(-80, 80);
-    path.close();
+    Paint paint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.white
+      ..isAntiAlias = true;
+    double relativeX = 100;
+    double angle = 0;
+    double width = 10;
+    double height = 10;
+    double center =  relativeX + width / 2;
+    if(angle == 0) {
+      center = relativeX + width/4;
+    } else if (angle == 2) {
+      center = relativeX + width/4*3;
+    }
 
-    canvas.drawShadow(path, Colors.red, 3, true);
-    canvas.translate(200, 0);
-    canvas.drawShadow(path, Colors.red, 3, false);
+    Path trianglePath = Path()
+      ..addPolygon([Offset(relativeX, height), Offset(relativeX + width, height), Offset(center, 0),], false)..close();
+
+    Path rectanglePath = Path()
+      ..addRRect(RRect.fromLTRBR(0, 10, 160, 100, Radius.circular(8)))..close();
+
+
+    canvas.drawShadow(Path.combine(PathOperation.xor, trianglePath, rectanglePath), Colors.black, 3, false);
+    canvas.drawPath(Path.combine(PathOperation.xor, trianglePath, rectanglePath), paint..color = Colors.white);
+    paint.maskFilter = MaskFilter.blur(BlurStyle.inner, 20);
+    canvas.drawPath(Path.combine(PathOperation.xor, trianglePath, rectanglePath), paint..color=Color(0xffBEC4C0));
+
   }
 
 
