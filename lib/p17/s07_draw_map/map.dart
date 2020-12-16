@@ -24,6 +24,7 @@ class _ChinaMapState extends State<ChinaMap> {
         return null;
       }
     } catch (e) {
+      print(e);
       return null;
     }
   }
@@ -77,9 +78,9 @@ class MapPainter extends CustomPainter {
     canvas.translate(-mapRoot.features[0].geometry.coordinates[0][0][0].dx,
         -mapRoot.features[0].geometry.coordinates[0][0][0].dy);
 
-    double rate = 0.7;
+    double rate = 0.65;
 
-    canvas.translate(-700*rate, 30*rate);
+    canvas.translate(-700*rate, 350*rate);
     canvas.scale(8*rate, -10.5*rate);
 
     _drawMap(canvas, size);

@@ -188,8 +188,6 @@ class Geometry {
   String type;
   List<List<List<Offset>>> coordinates;
 
-
-
   Geometry({
     this.type,
     this.coordinates,
@@ -198,32 +196,63 @@ class Geometry {
   static Geometry fromJson(jsonRes) {
     if (jsonRes == null) return null;
 
-    List<List<List<Offset>>> coordinates = jsonRes['coordinates'] is List ? [] : null;
-    if (coordinates != null) {
+    List<List<List<Offset>>> coordinates =
+        jsonRes['coordinates'] is List ? [] : null;
 
-
-      for (var level0 in jsonRes['coordinates']) {
-
-        if (level0 != null) {
-          List<List<Offset>> items1 = [];
-          for (var item1 in level0 is List ? level0 : []) {
-            if (item1 != null) {
-              List<Offset> items2 = [];
-              for (var item2 in item1 is List ? item1 : []) {
-                if (item2 != null && item2 is List) {
-                  Offset items3 = Offset(item2[0], item2[1]);
-                  items2.add(items3);
-                }else{
-                  items2.add(Offset.zero);
-                }
-                items1.add(items2);
-              }
-            }
-            coordinates.add(items1);
+    bool fourLever =false;
+    if (jsonRes['coordinates'] is List) {
+      if (jsonRes['coordinates'][0] is List){
+        if (jsonRes['coordinates'][0][0] is List){
+          if (jsonRes['coordinates'][0][0][0] is List){
+            fourLever =true;
           }
         }
       }
     }
+
+    if(!fourLever){
+      if (coordinates != null) {
+        for (var level0 in jsonRes['coordinates']) {
+          List<List<Offset>> lever0=[];
+          if (level0 != null) {
+            List<Offset> items1 = [];
+            for (var item1 in level0 is List ? level0 : []) {
+              if (item1 != null) {
+                Offset items2 = Offset(item1[0], item1[1]);
+                items1.add(items2);
+              }
+              lever0.add(items1);
+            }
+          }
+          coordinates.add(lever0);
+        }
+      }
+    }else{
+      if (coordinates != null) {
+        for (var level0 in jsonRes['coordinates']) {
+          if (level0 != null) {
+            List<List<Offset>> items1 = [];
+            for (var item1 in level0 is List ? level0 : []) {
+              if (item1 != null) {
+                List<Offset> items2 = [];
+                for (var item2 in item1 is List ? item1 : []) {
+                  if (item2 != null && item2 is List) {
+                    Offset items3 = Offset(item2[0], item2[1]);
+                    items2.add(items3);
+                  } else {
+                    items2.add(Offset.zero);
+                  }
+                  items1.add(items2);
+                }
+              }
+              coordinates.add(items1);
+            }
+          }
+        }
+      }
+    }
+
+
     return Geometry(
       type: jsonRes['type'],
       coordinates: coordinates,
