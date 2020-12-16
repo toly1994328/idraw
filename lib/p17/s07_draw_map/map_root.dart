@@ -200,16 +200,21 @@ class Geometry {
 
     List<List<List<Offset>>> coordinates = jsonRes['coordinates'] is List ? [] : null;
     if (coordinates != null) {
-      for (var item0 in jsonRes['coordinates']) {
-        if (item0 != null) {
+
+
+      for (var level0 in jsonRes['coordinates']) {
+
+        if (level0 != null) {
           List<List<Offset>> items1 = [];
-          for (var item1 in item0 is List ? item0 : []) {
+          for (var item1 in level0 is List ? level0 : []) {
             if (item1 != null) {
               List<Offset> items2 = [];
               for (var item2 in item1 is List ? item1 : []) {
-                if (item2 != null) {
-                  Offset items3 = Offset(item2[0],item2[1]);
+                if (item2 != null && item2 is List) {
+                  Offset items3 = Offset(item2[0], item2[1]);
                   items2.add(items3);
+                }else{
+                  items2.add(Offset.zero);
                 }
                 items1.add(items2);
               }

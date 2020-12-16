@@ -41,6 +41,7 @@ class _ChinaMapState extends State<ChinaMap> {
     return FutureBuilder<MapRoot>(
       future: _future,
       builder: (context, async) {
+        print(async.hasData);
         if (async.hasData) {
           return CustomPaint(
             size: Size(700, 600),
@@ -69,6 +70,7 @@ class MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+
     canvas.clipRect(
         Rect.fromPoints(Offset.zero, Offset(size.width, size.height)));
     canvas.translate(size.width / 2, size.height / 2);
@@ -88,7 +90,6 @@ class MapPainter extends CustomPainter {
       var features = mapRoot.features[i];
       PaintingStyle style;
       Color color;
-      print('-----${features.properties.name}---------');
       Path path = Path();
       if (features.properties.name == "台湾省" ||
           features.properties.name == "海南省" ||
