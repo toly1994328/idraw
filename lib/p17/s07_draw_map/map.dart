@@ -44,7 +44,7 @@ class _ChinaMapState extends State<ChinaMap> {
         print(async.hasData);
         if (async.hasData) {
           return CustomPaint(
-            size: Size(700, 600),
+            size: Size(500, 400),
             painter: MapPainter(mapRoot: async.data),
           );
         } else {
@@ -77,8 +77,10 @@ class MapPainter extends CustomPainter {
     canvas.translate(-mapRoot.features[0].geometry.coordinates[0][0][0].dx,
         -mapRoot.features[0].geometry.coordinates[0][0][0].dy);
 
-    canvas.translate(-700, 320);
-    canvas.scale(8, -10.5);
+    double rate = 0.7;
+
+    canvas.translate(-700*rate, 30*rate);
+    canvas.scale(8*rate, -10.5*rate);
 
     _drawMap(canvas, size);
   }
