@@ -12,10 +12,10 @@ class HandleWidget extends StatefulWidget {
   final void Function(double rotate, double distance) onMove;
 
   HandleWidget(
-      {Key key,
+      {Key? key,
       this.size = 160,
       this.handleRadius = 20.0,
-      @required this.onMove})
+      required this.onMove})
       : super(key: key);
 
   @override
@@ -42,9 +42,7 @@ class _HandleWidgetState extends State<HandleWidget> {
 
   reset(DragEndDetails details) {
     _offset.value = Offset.zero;
-    if (widget.onMove != null) {
-      widget.onMove(0, 0);
-    }
+    widget.onMove(0, 0);
   }
 
   parser(DragUpdateDetails details) {
@@ -65,10 +63,7 @@ class _HandleWidgetState extends State<HandleWidget> {
       dx = bgR * cos(thta);
       dy = -bgR * sin(thta);
     }
-    if (widget.onMove != null) {
-      widget.onMove(thta, d);
-    }
-
+    widget.onMove(thta, d);
     _offset.value = Offset(dx, dy);
   }
 }
@@ -80,7 +75,7 @@ class _HandlePainter extends CustomPainter {
 
   var handleR;
 
-  _HandlePainter({this.handleR, this.offset, this.color = Colors.blue})
+  _HandlePainter({this.handleR,required this.offset, this.color = Colors.blue})
       : super(repaint: offset);
 
 

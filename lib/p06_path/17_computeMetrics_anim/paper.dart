@@ -11,7 +11,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> with SingleTickerProviderStateMixin {
-  AnimationController _ctrl;
+  late AnimationController _ctrl;
   double progress = 0.0;
 
   @override
@@ -43,7 +43,7 @@ class _PaperState extends State<Paper> with SingleTickerProviderStateMixin {
 class PaperPainter extends CustomPainter {
   final Animation<double> progress;
 
-  PaperPainter({this.progress}) : super(repaint: progress);
+  PaperPainter({required this.progress}) : super(repaint: progress);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -66,8 +66,8 @@ class PaperPainter extends CustomPainter {
 
     PathMetrics pms = path.computeMetrics();
     pms.forEach((pm) {
-      Tangent tangent = pm.getTangentForOffset(pm.length * progress.value);
-
+      Tangent? tangent = pm.getTangentForOffset(pm.length * progress.value);
+      if(tangent ==null) return;
       canvas.drawCircle(
           tangent.position, 5, Paint()..color = Colors.deepOrange);
     });

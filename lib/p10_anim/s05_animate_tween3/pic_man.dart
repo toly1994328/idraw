@@ -12,14 +12,14 @@ import 'color_double_tween.dart';
 class PicMan extends StatefulWidget {
   final Color color;
 
-  PicMan({Key key, this.color = Colors.lightBlue}) : super(key: key);
+  PicMan({Key? key, this.color = Colors.lightBlue}) : super(key: key);
 
   @override
   _PicManState createState() => _PicManState();
 }
 
 class _PicManState extends State<PicMan> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class PicManPainter extends CustomPainter {
         center: Offset(0, 0), height: size.width, width: size.height);
     var a = tween.evaluate(repaint).value / 180 * pi;
     canvas.drawArc(rect, a, 2 * pi - a.abs() * 2, true,
-        _paint..color = tween.evaluate(repaint).color);
+        _paint..color = tween.evaluate(repaint).color??Colors.black);
   }
 
   //绘制眼睛

@@ -20,7 +20,7 @@ class Paper extends StatelessWidget {
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _gridPint; // 画笔
+  late Paint _gridPint; // 画笔
   final double step = 20; // 小格边长
   final double strokeWidth = .5; // 线宽
   final Color color = Colors.grey; // 线颜色

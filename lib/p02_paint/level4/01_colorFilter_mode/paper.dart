@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  ui.Image _img;
+  ui.Image? _img;
 
   bool get hasImage => _img != null;
 
@@ -26,22 +27,15 @@ class _PaperState extends State<Paper> {
   }
 
   void _loadImage() async {
-    _img = await loadImage(AssetImage('assets/images/wy_200x300.jpg'));
+    _img = await loadImageFromAssets('assets/images/wy_200x300.jpg');
     setState(() {});
   }
 
-  //异步加载图片成为ui.Image
-  Future<ui.Image> loadImage(ImageProvider provider) {
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    ImageStreamListener listener;
-    ImageStream stream = provider.resolve(ImageConfiguration());
-    listener = ImageStreamListener((info, syno) {
-      final ui.Image image = info.image; //监听图片流，获取图片
-      completer.complete(image);
-      stream.removeListener(listener);
-    });
-    stream.addListener(listener);
-    return completer.future;
+  //读取 assets 中的图片
+  Future<ui.Image>? loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    Uint8List bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    return decodeImageFromList(bytes);
   }
 
   @override
@@ -55,7 +49,7 @@ class _PaperState extends State<Paper> {
 }
 
 class PaperPainter extends CustomPainter {
-  ui.Image img;
+  ui.Image? img;
 
   PaperPainter(this.img);
 
@@ -65,9 +59,9 @@ class PaperPainter extends CustomPainter {
     drawColorFilter(canvas);
   }
 
-  double get imgW => img.width.toDouble();
+  double get imgW => img?.width.toDouble()??0;
 
-  double get imgH => img.height.toDouble();
+  double get imgH => img?.height.toDouble()??0;
 
   void drawColorFilter(Canvas canvas) {
     var paint = Paint();
@@ -93,7 +87,7 @@ class PaperPainter extends CustomPainter {
     } else {
       canvas.translate(20, 20);
     }
-    canvas.drawImageRect(img, Rect.fromLTRB(0, 0, imgW, imgH),
+    canvas.drawImageRect(img!, Rect.fromLTRB(0, 0, imgW, imgH),
         Rect.fromLTRB(0, 0, imgW / 2, imgH / 2), paint);
   }
 

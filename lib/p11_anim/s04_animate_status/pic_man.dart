@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 class PicMan extends StatefulWidget {
   final Color color;
 
-  PicMan({Key key, this.color = Colors.lightBlue}) : super(key: key);
+  PicMan({Key? key, this.color = Colors.lightBlue}) : super(key: key);
 
   @override
   _PicManState createState() => _PicManState();
 }
 
 class _PicManState extends State<PicMan> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   final ValueNotifier<Color> _color = ValueNotifier<Color>(Colors.blue);
 
   @override
@@ -68,7 +68,7 @@ class PicManPainter extends CustomPainter {
   final Listenable repaint;
   final ValueNotifier<Color> color;
 
-  PicManPainter({this.color, this.angle, this.repaint})
+  PicManPainter({required this.color,required this.angle, required this.repaint})
       : super(repaint: repaint);
 
   Paint _paint = Paint();

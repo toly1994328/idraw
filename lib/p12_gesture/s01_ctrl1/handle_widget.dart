@@ -8,7 +8,7 @@ class HandleWidget extends StatefulWidget {
   final double size;
   final double handleRadius;
 
-  HandleWidget({Key key, this.size = 160.0, this.handleRadius = 20.0})
+  HandleWidget({Key? key, this.size = 160.0, this.handleRadius = 20.0})
       : super(key: key);
 
   @override

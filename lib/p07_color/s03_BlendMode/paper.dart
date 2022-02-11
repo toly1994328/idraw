@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../coordinate_pro.dart';
 
@@ -15,7 +17,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  ui.Image _image;
+  ui.Image? _image;
 
   @override
   void initState() {
@@ -25,8 +27,14 @@ class _PaperState extends State<Paper> {
 
   void _loadImage() async {
     _image =
-    await loadImageByProvider(AssetImage('assets/images/icon_head.png'));
+    await loadImageFromAssets('assets/images/icon_head.png');
     setState(() {});
+  }
+
+  //读取 assets 中的图片
+  Future<ui.Image>? loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    return decodeImageFromList(data.buffer.asUint8List());
   }
 
   @override
@@ -35,27 +43,12 @@ class _PaperState extends State<Paper> {
         color: Colors.white, child: CustomPaint(painter: PaperPainter(_image)));
   }
 
-  //通过ImageProvider读取Image
-  Future<ui.Image> loadImageByProvider(
-      ImageProvider provider, {
-        ImageConfiguration config = ImageConfiguration.empty,
-      }) async {
-    Completer<ui.Image> completer = Completer<ui.Image>(); //完成的回调
-    ImageStream stream = provider.resolve(config); //获取图片流
-    // 通过监听 ImageStream 获取流中数据
-    ImageStreamListener listener;
-    listener = ImageStreamListener((ImageInfo frame, bool sync) {
-      completer.complete(frame.image); //完成
-      stream.removeListener(listener); //移除监听
-    });
-    stream.addListener(listener); //添加监听
-    return completer.future; //返回
-  }
+
 }
 
 class PaperPainter extends CustomPainter {
 
-  final ui.Image image;
+  final ui.Image? image;
 
 
   PaperPainter(this.image);
@@ -69,22 +62,19 @@ class PaperPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
     if(image ==null) return;
 
     Paint srcPaint = Paint();
     canvas.translate(size.width / 2, size.height / 2);
     canvas.translate(-step * 17, -step * 7);
-
     Paint dstPaint = Paint();
-
     BlendMode.values.asMap().forEach((i, value) {
       int line = i ~/ 10;
       int row = i % 10;
       canvas.save();
 
       canvas.translate(3.7 * step * row, 5.5 * step * line);
-      canvas.drawImageRect(image, Rect.fromPoints(Offset.zero, Offset(image.width*1.0,image.height*1.0)),
+      canvas.drawImageRect(image!, Rect.fromPoints(Offset.zero, Offset(image!.width*1.0,image!.height*1.0)),
           Rect.fromCenter(center:Offset.zero, width: 25*2.0,height: 25*2.0), dstPaint);
 
       srcPaint
@@ -92,7 +82,6 @@ class PaperPainter extends CustomPainter {
         ..blendMode = value;
       canvas.drawRect(
           Rect.fromPoints(Offset.zero, Offset(20 * 2.0, 20 * 2.0)), srcPaint);
-
 
       _simpleDrawText(canvas,value.toString().split(".")[1],offset: Offset(-10, 50));
       canvas.restore();

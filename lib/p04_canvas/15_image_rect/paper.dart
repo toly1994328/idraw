@@ -30,7 +30,7 @@ class _PaperState extends State<Paper> {
     setState(() {});
   }
 
-  ui.Image _image;
+  ui.Image? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +43,19 @@ class _PaperState extends State<Paper> {
   }
 
   //读取 assets 中的图片
-  Future<ui.Image> loadImageFromAssets(String path) async {
+  Future<ui.Image>? loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    return decodeImageFromList(bytes);
+    return decodeImageFromList(data.buffer.asUint8List());
   }
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
 
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;
 
-  final ui.Image image;
+  final ui.Image? image;
   final Coordinate coordinate = Coordinate();
 
   PaperPainter(this.image) {
@@ -80,34 +79,34 @@ class PaperPainter extends CustomPainter {
   void _drawImage(Canvas canvas) {
     if (image != null) {
       canvas.drawImage(
-          image, Offset(-image.width / 2, -image.height / 2), _paint);
+          image!, Offset(-image!.width / 2, -image!.height / 2), _paint);
     }
   }
 
   void _drawImageRect(Canvas canvas) {
     if (image != null) {
       canvas.drawImageRect(
-          image,
+          image!,
           Rect.fromCenter(
-              center: Offset(image.width / 2, image.height / 2),
+              center: Offset(image!.width / 2, image!.height / 2),
               width: 60,
               height: 60),
           Rect.fromLTRB(0, 0, 100, 100).translate(200, 0),
           _paint);
 
       canvas.drawImageRect(
-          image,
+          image!,
           Rect.fromCenter(
-              center: Offset(image.width / 2, image.height / 2 - 60),
+              center: Offset(image!.width / 2, image!.height / 2 - 60),
               width: 60,
               height: 60),
           Rect.fromLTRB(0, 0, 100, 100).translate(-280, -100),
           _paint);
 
       canvas.drawImageRect(
-          image,
+          image!,
           Rect.fromCenter(
-              center: Offset(image.width / 2 + 60, image.height / 2),
+              center: Offset(image!.width / 2 + 60, image!.height / 2),
               width: 60,
               height: 60),
           Rect.fromLTRB(0, 0, 100, 100).translate(-280, 50),

@@ -11,7 +11,7 @@ class CurveBox extends StatefulWidget {
   final Color color;
   final Curve curve;
 
-  CurveBox({Key key, this.color = Colors.lightBlue, this.curve = Curves.linear})
+  CurveBox({Key? key, this.color = Colors.lightBlue, this.curve = Curves.linear})
       : super(key: key);
 
   @override
@@ -20,8 +20,8 @@ class CurveBox extends StatefulWidget {
 
 class _CurveBoxState extends State<CurveBox>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _angleAnimation;
+  late AnimationController _controller;
+  late Animation<double> _angleAnimation;
 
   @override
   void initState() {

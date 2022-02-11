@@ -33,7 +33,9 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: Center(
             child: RulerChooser(
+onChanged: (value){
 
+},
             ),
           ),
         ));

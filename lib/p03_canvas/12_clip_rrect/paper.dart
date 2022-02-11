@@ -28,17 +28,8 @@ class Paper extends StatelessWidget {
 class PaperPainter extends CustomPainter {
   final Coordinate coordinate = Coordinate();
 
-  Paint _paint;
-
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;
-
-  PaperPainter() {
-    _paint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = strokeWidth
-      ..color = color;
-  }
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -48,7 +39,6 @@ class PaperPainter extends CustomPainter {
     // canvas.save();
     var rect = Rect.fromCenter(center: Offset.zero,width: 200,height: 100);
     canvas.clipRRect(RRect.fromRectAndRadius(rect, Radius.circular(30)));
-
     canvas.drawColor(Colors.red, BlendMode.darken);
   }
 

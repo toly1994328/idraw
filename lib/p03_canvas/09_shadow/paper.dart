@@ -27,18 +27,8 @@ class Paper extends StatelessWidget {
 
 class PaperPainter extends CustomPainter {
   final Coordinate coordinate = Coordinate();
-
-  Paint _paint;
-
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;
-
-  PaperPainter() {
-    _paint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = strokeWidth
-      ..color = color;
-  }
 
   @override
   void paint(Canvas canvas, Size size) {

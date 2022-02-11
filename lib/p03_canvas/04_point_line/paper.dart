@@ -23,9 +23,9 @@ class Paper extends StatelessWidget {
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
 
-  Paint _gridPint;
+  late Paint _gridPint;
   final double step = 20;
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;

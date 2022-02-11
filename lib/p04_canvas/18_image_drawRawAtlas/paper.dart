@@ -31,7 +31,7 @@ class _PaperState extends State<Paper> {
     setState(() {});
   }
 
-  ui.Image _image;
+  ui.Image? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +44,19 @@ class _PaperState extends State<Paper> {
   }
 
   //读取 assets 中的图片
-  Future<ui.Image> loadImageFromAssets(String path) async {
+  Future<ui.Image>? loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    return decodeImageFromList(bytes);
+    return decodeImageFromList(data.buffer.asUint8List());
   }
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
 
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;
 
-  final ui.Image image;
+  final ui.Image? image;
   final Coordinate coordinate = Coordinate();
 
   final List<Sprite> allSprites = [];
@@ -116,7 +115,7 @@ class PaperPainter extends CustomPainter {
 
     }
 
-    canvas.drawRawAtlas(image, transformList, rectList, null, null, null, _paint);
+    canvas.drawRawAtlas(image!, transformList, rectList, null, null, null, _paint);
   }
 
   @override
@@ -130,5 +129,5 @@ class Sprite {
   int alpha; // 透明度
   double rotation; // 旋转角度
 
-  Sprite({this.offset=Offset.zero,this.anchor=Offset.zero, this.alpha=255, this.rotation=0, this.position});
+  Sprite({this.offset=Offset.zero,this.anchor=Offset.zero, this.alpha=255, this.rotation=0,required this.position});
 }

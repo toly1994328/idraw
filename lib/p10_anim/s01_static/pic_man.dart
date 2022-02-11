@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PicMan extends StatefulWidget {
   final Color color;
   final double angle;
-  PicMan({Key key, this.color = Colors.lightBlue, this.angle = 30 }) : super(key: key);
+  PicMan({Key? key, this.color = Colors.lightBlue, this.angle = 30 }) : super(key: key);
 
   @override
   _PicManState createState() => _PicManState();

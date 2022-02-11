@@ -13,7 +13,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  ui.Image _img;
+  ui.Image? _img;
   bool get hasImage => _img != null;
 
   @override
@@ -40,10 +40,10 @@ class _PaperState extends State<Paper> {
     setState(() {});
   }
 
+  late ImageStreamListener listener;
   //异步加载图片成为ui.Image
   Future<ui.Image> loadImage(ImageProvider provider) {
     Completer<ui.Image> completer = Completer<ui.Image>();
-    ImageStreamListener listener;
     ImageStream stream = provider.resolve(ImageConfiguration());
     listener = ImageStreamListener((info, syno) {
       final ui.Image image = info.image; //监听图片流，获取图片
@@ -56,8 +56,8 @@ class _PaperState extends State<Paper> {
 }
 
 class ImageShaderPainter extends CustomPainter {
-  ui.Image img;
-  Paint _paint;
+  ui.Image? img;
+  late Paint _paint;
 
   ImageShaderPainter(this.img) {
     _paint = Paint();
@@ -65,9 +65,9 @@ class ImageShaderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print(img);
+    if(img==null) return;
     _paint.shader = ImageShader(
-        img,
+        img!,
         TileMode.repeated,
         TileMode.repeated,
         Float64List.fromList([

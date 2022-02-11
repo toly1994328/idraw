@@ -30,8 +30,8 @@ class _PaperState extends State<Paper> {
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _paint;
-  Path _path;
+ late Paint _paint;
+ late Path _path;
 
   PaperPainter() {
     _paint = Paint()

@@ -14,8 +14,8 @@ class RulerChooser extends StatefulWidget {
   final int max;
 
   RulerChooser(
-      {Key key,
-      @required this.onChanged,
+      {Key? key,
+      required this.onChanged,
       this.max = 200,
       this.min = 100,
       this.size = const Size(240.0, 60)})
@@ -82,7 +82,7 @@ class _HandlePainter extends CustomPainter {
   final int max;
   final int min;
 
-  _HandlePainter({this.dx, this.max, this.min}) : super(repaint: dx) {
+  _HandlePainter({required this.dx,required this.max,required this.min}) : super(repaint: dx) {
     _paint
       ..strokeWidth = _kStrokeWidth
           ..shader = ui.Gradient.radial(

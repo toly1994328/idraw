@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               children: curvesMap.keys.map((e) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CurveBox(curve: curvesMap[e],),
+                  CurveBox(curve: curvesMap[e]!,),
                   SizedBox(height: 3,),
                   Text(e,style: TextStyle(fontSize: 10),)
                 ],

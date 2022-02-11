@@ -10,16 +10,16 @@ import 'package:flutter/material.dart';
 class PicMan extends StatefulWidget {
   final Color color;
 
-  PicMan({Key key, this.color = Colors.lightBlue}) : super(key: key);
+  PicMan({Key? key, this.color = Colors.lightBlue}) : super(key: key);
 
   @override
   _PicManState createState() => _PicManState();
 }
 
 class _PicManState extends State<PicMan> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Color> _colorCtrl;
-  Animation<double> _angleCtrl;
+ late AnimationController _controller;
+ late Animation<Color?> _colorCtrl;
+ late Animation<double> _angleCtrl;
 
   @override
   void initState() {
@@ -56,11 +56,11 @@ class _PicManState extends State<PicMan> with SingleTickerProviderStateMixin {
 class PicManPainter extends CustomPainter {
   final Animation<double> repaint;
   final Animation<double> angle;
-  final Animation<Color> color;
+  final Animation<Color?> color;
 
   Paint _paint = Paint();
 
-  PicManPainter({this.repaint, this.color, this.angle})
+  PicManPainter({ required this.repaint,required this.color,required this.angle})
       : super(repaint: repaint);
 
   @override
@@ -78,7 +78,7 @@ class PicManPainter extends CustomPainter {
         center: Offset(0, 0), height: size.width, width: size.height);
     var a = angle.value / 180 * pi;
     canvas.drawArc(
-        rect, a, 2 * pi - a.abs() * 2, true, _paint..color = color.value);
+        rect, a, 2 * pi - a.abs() * 2, true, _paint..color = color.value??Colors.black);
   }
 
   //绘制眼睛

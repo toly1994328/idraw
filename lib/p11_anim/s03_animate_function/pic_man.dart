@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 class PicMan extends StatefulWidget {
   final Color color;
 
-  PicMan({Key key, this.color = Colors.lightBlue}) : super(key: key);
+  PicMan({Key? key, this.color = Colors.lightBlue}) : super(key: key);
 
   @override
   _PicManState createState() => _PicManState();
 }
 
 class _PicManState extends State<PicMan> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+ late AnimationController _controller;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class PicManPainter extends CustomPainter {
   final Color color; // 颜色
   Paint _paint = Paint();
 
-  PicManPainter({this.color = Colors.yellowAccent, this.angle})
+  PicManPainter({this.color = Colors.yellowAccent,required this.angle})
       : super(repaint: angle);
 
   @override

@@ -26,7 +26,7 @@ class Paper extends StatelessWidget {
 class PaperPainter extends CustomPainter {
   final Coordinate coordinate = Coordinate();
 
-  Paint _paint;
+  late Paint _paint;
 
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;

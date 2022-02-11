@@ -53,7 +53,8 @@ class PaperPainter extends CustomPainter {
       print(
           "---length:-${pm.length}----contourIndex:-${pm.contourIndex}----contourIndex:-${pm.isClosed}----");
 
-      Tangent tangent = pm.getTangentForOffset(pm.length * 0.5);
+      Tangent? tangent = pm.getTangentForOffset(pm.length * 0.5);
+      if(tangent==null) return;
       print(
           "---position:-${tangent.position}----angle:-${tangent.angle}----vector:-${tangent.vector}----");
 

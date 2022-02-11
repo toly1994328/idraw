@@ -16,7 +16,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  image.Image _image;
+  image.Image? _image;
 
   @override
   void initState() {
@@ -38,19 +38,18 @@ class _PaperState extends State<Paper> {
   //读取 assets 中的图片
   Future<image.Image> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    List<int> bytes = data.buffer.asUint8List();
     return image.decodeImage(bytes);
   }
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
 
   final double strokeWidth = 0.5;
   final Color color = Colors.blue;
 
-  final image.Image imageSrc;
+  final image.Image? imageSrc;
   final Coordinate coordinate = Coordinate();
 
   PaperPainter(this.imageSrc) {
@@ -73,7 +72,7 @@ class PaperPainter extends CustomPainter {
 
   void _drawImage(Canvas canvas) {
     if (imageSrc == null)  return;
-      int colorInt = imageSrc.getPixel(imageSrc.width, 0);
+      int colorInt = imageSrc!.getPixel(imageSrc!.width, 0);
 
     var color = Color(colorInt);
 

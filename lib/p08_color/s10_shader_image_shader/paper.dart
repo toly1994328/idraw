@@ -15,7 +15,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  ui.Image _img;
+  ui.Image? _img;
   bool get hasImage => _img != null;
 
   @override
@@ -35,27 +35,19 @@ class _PaperState extends State<Paper> {
   }
 
   void _loadImage() async {
-    _img = await loadImage(AssetImage('assets/images/wy_200x300.jpg'));
+    _img = await loadImageFromAssets('assets/images/wy_200x300.jpg');
     setState(() {});
   }
 
-  //异步加载图片成为ui.Image
-  Future<ui.Image> loadImage(ImageProvider provider) {
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    ImageStreamListener listener;
-    ImageStream stream = provider.resolve(ImageConfiguration());
-    listener = ImageStreamListener((info, syno) {
-      final ui.Image image = info.image; //监听图片流，获取图片
-      completer.complete(image);
-      stream.removeListener(listener);
-    });
-    stream.addListener(listener);
-    return completer.future;
+  //读取 assets 中的图片
+  Future<ui.Image>? loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    return decodeImageFromList(data.buffer.asUint8List());
   }
 }
 
 class ImageShaderPainter extends CustomPainter {
-  ui.Image img;
+  ui.Image? img;
 
   ImageShaderPainter(this.img);
   Coordinate coordinate = Coordinate();
@@ -66,7 +58,7 @@ class ImageShaderPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
 
     Paint paint = Paint()..shader = ImageShader(
-        img,
+        img!,
         TileMode.repeated,
         TileMode.repeated,
         Float64List.fromList([

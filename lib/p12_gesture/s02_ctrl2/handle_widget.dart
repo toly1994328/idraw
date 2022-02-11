@@ -10,7 +10,7 @@ class HandleWidget extends StatefulWidget {
   final double size;
   final double handleRadius;
 
-  HandleWidget({Key key, this.size = 160, this.handleRadius = 20.0})
+  HandleWidget({Key? key, this.size = 160, this.handleRadius = 20.0})
       : super(key: key);
 
   @override
@@ -65,7 +65,7 @@ class _HandlePainter extends CustomPainter {
 
   var handleR;
 
-  _HandlePainter({this.handleR, this.offset, this.color = Colors.blue})
+  _HandlePainter({this.handleR,required this.offset, this.color = Colors.blue})
       : super(repaint: offset) ;
 
   @override

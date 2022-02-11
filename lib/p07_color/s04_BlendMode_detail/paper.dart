@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../coordinate_pro.dart';
 
@@ -15,8 +17,8 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> {
-  ui.Image _srcImage;
-  ui.Image _dstImage;
+  ui.Image? _srcImage;
+  ui.Image? _dstImage;
 
   @override
   void initState() {
@@ -25,8 +27,8 @@ class _PaperState extends State<Paper> {
   }
 
   void _loadImage() async {
-    _srcImage = await loadImageByProvider(AssetImage('assets/images/src.png'));
-    _dstImage = await loadImageByProvider(AssetImage('assets/images/dst.png'));
+    _srcImage = await loadImageFromAssets('assets/images/src.png');
+    _dstImage = await loadImageFromAssets('assets/images/dst.png');
     setState(() {});
   }
 
@@ -37,27 +39,17 @@ class _PaperState extends State<Paper> {
         child: CustomPaint(painter: PaperPainter(_srcImage, _dstImage)));
   }
 
-  //通过ImageProvider读取Image
-  Future<ui.Image> loadImageByProvider(
-    ImageProvider provider, {
-    ImageConfiguration config = ImageConfiguration.empty,
-  }) async {
-    Completer<ui.Image> completer = Completer<ui.Image>(); //完成的回调
-    ImageStream stream = provider.resolve(config); //获取图片流
-    // 通过监听 ImageStream 获取流中数据
-    ImageStreamListener listener;
-    listener = ImageStreamListener((ImageInfo frame, bool sync) {
-      completer.complete(frame.image); //完成
-      stream.removeListener(listener); //移除监听
-    });
-    stream.addListener(listener); //添加监听
-    return completer.future; //返回
+  //读取 assets 中的图片
+  Future<ui.Image>? loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    return decodeImageFromList(data.buffer.asUint8List());
   }
+
 }
 
 class PaperPainter extends CustomPainter {
-  final ui.Image srcImage;
-  final ui.Image dstImage;
+  final ui.Image? srcImage;
+  final ui.Image? dstImage;
 
   PaperPainter(this.srcImage, this.dstImage);
 
@@ -89,17 +81,17 @@ class PaperPainter extends CustomPainter {
     canvas.translate(size.width / 2, size.height / 2);
 
     canvas.drawImageRect(
-        dstImage,
+        dstImage!,
         Rect.fromPoints(
-            Offset.zero, Offset(dstImage.width * 1.0, dstImage.height * 1.0)),
+            Offset.zero, Offset(dstImage!.width * 1.0, dstImage!.height * 1.0)),
         Rect.fromCenter(
             center: Offset.zero, width: 400, height: 400),
         dstPaint);
 
     canvas.drawImageRect(
-        srcImage,
+        srcImage!,
         Rect.fromPoints(
-            Offset.zero, Offset(srcImage.width * 1.0, srcImage.height * 1.0)),
+            Offset.zero, Offset(srcImage!.width * 1.0, srcImage!.height * 1.0)),
         Rect.fromCenter(
             center: Offset.zero, width: 400, height: 400),
         srcPaint);

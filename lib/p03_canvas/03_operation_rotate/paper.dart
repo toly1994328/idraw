@@ -22,7 +22,7 @@ class Paper extends StatelessWidget {
 }
 
 class PaperPainter extends CustomPainter {
-  Paint _gridPint;
+  late Paint _gridPint;
   final double step = 20;
   final double strokeWidth = .5;
 
