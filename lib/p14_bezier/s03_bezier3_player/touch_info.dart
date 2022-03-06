@@ -36,6 +36,6 @@ class TouchInfo extends ChangeNotifier {
     notifyListeners();
   }
 
-  Offset get selectPoint =>
+  Offset? get selectPoint =>
       _selectIndex == -1 ? null : _points[_selectIndex];
 }

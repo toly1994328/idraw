@@ -10,7 +10,7 @@ import 'clock_manage.dart';
 class BgPainter extends CustomPainter {
   final BgManage manage;
 
-  BgPainter({this.manage}) : super(repaint: manage);
+  BgPainter({required this.manage}) : super(repaint: manage);
 
   Paint clockPaint = Paint();
 

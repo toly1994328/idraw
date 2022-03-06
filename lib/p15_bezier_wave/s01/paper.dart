@@ -28,7 +28,7 @@ class PaperPainter extends CustomPainter {
   Paint _helpPaint = Paint();
 
   double waveWidth = 80;
-  double wrapHeight;
+  double wrapHeight=0;
 
   double waveHeight = 40;
 

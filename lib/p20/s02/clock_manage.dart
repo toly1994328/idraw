@@ -11,8 +11,8 @@ import 'res.dart';
 /// 说明:
 
 class ClockManage with ChangeNotifier {
-  List<Particle> particles;
-  DateTime datetime; // 时间
+  late List<Particle> particles;
+  late DateTime datetime; // 时间
 
   /// 粒子列表
   int numParticles;
@@ -20,8 +20,8 @@ class ClockManage with ChangeNotifier {
   /// 最大粒子数
   Size size; // 尺寸
 
-  ClockManage({this.size, this.numParticles = 500}) {
-    particles = List(numParticles);
+  ClockManage({required this.size, this.numParticles = 500}) {
+    particles = [];
     datetime = DateTime.now();
   }
 

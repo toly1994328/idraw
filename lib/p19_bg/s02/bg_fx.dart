@@ -10,7 +10,7 @@ import 'utils/rnd.dart';
 final easingDelayDuration = Duration(seconds: 15);
 
 class BgFx extends ClockFx {
-  BgFx({@required Size size, @required DateTime time})
+  BgFx({required Size size, required DateTime time})
       : super(
           size: size,
           time: time,

@@ -11,7 +11,7 @@ import 'dart:ui' as ui;
 class ParticleManage with ChangeNotifier {
   List<Particle> particles = [];
   Random random = Random();
-  ui.Image image ;
+  ui.Image? image ;
 
   void setImage(ui.Image image) {
     this.image = image;
@@ -20,7 +20,7 @@ class ParticleManage with ChangeNotifier {
 
   Size size;
 
-  ParticleManage({this.size});
+  ParticleManage({this.size= Size.zero});
 
   void setParticles(List<Particle> particles) {
     this.particles = particles;

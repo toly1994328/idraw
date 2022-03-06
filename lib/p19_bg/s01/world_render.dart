@@ -24,7 +24,7 @@ class WorldRender extends CustomPainter {
     ..strokeWidth = 0.5
     ..style = PaintingStyle.stroke;
 
-  WorldRender({this.manage}) : super(repaint: manage);
+  WorldRender({required this.manage}) : super(repaint: manage);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -37,16 +37,17 @@ class WorldRender extends CustomPainter {
 
   void drawParticle(Canvas canvas, Particle particle) {
     fillPaint.color = particle.color;
+    if( manage.image ==null) return;
     canvas.save();
     canvas.translate(particle.x, particle.y);
     var dis = sqrt(particle.vy * particle.vy + particle.vx * particle.vx);
     canvas.rotate(acos(particle.vx / dis) + pi + pi / 2);
     canvas.drawImageRect(
-        manage.image,
+        manage.image!,
         Rect.fromLTWH(
-            0, 0, manage.image.width * 1.0, manage.image.height * 1.0),
+            0, 0, manage.image!.width * 1.0, manage.image!.height * 1.0),
         Rect.fromLTWH(
-            0, 0, manage.image.width * 0.18, manage.image.height * 0.18),
+            0, 0, manage.image!.width * 0.18, manage.image!.height * 0.18),
         fillPaint);
     canvas.restore();
   }

@@ -14,7 +14,7 @@ class ParticleManage with ChangeNotifier {
 
   Size size;
 
-  ParticleManage({this.size});
+  ParticleManage({this.size= Size.zero});
 
   void setParticles(List<Particle> particles) {
     this.particles = particles;

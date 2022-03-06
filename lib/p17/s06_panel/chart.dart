@@ -15,7 +15,7 @@ class ICharts extends StatefulWidget {
 }
 
 class _IChartsState extends State<ICharts> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -91,7 +91,7 @@ class ChartPainter extends CustomPainter {
 
   double get initAngle => (360 - _kAngle) / 2;
 
-  ChartPainter({this.repaint}) : super(repaint: repaint);
+  ChartPainter({required this.repaint}) : super(repaint: repaint);
 
   @override
   void paint(Canvas canvas, Size size) {

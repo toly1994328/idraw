@@ -5,18 +5,18 @@ import 'package:flutter/cupertino.dart';
 class MapRoot {
   String type;
   String name;
-  List<Features> features;
+  List<Features?>? features;
 
   MapRoot({
-    this.type,
-    this.name,
-    this.features,
+   required this.type,
+    required this.name,
+    required this.features,
   });
 
-  static MapRoot fromJson(jsonRes) {
+  static MapRoot? fromJson(jsonRes) {
     if (jsonRes == null) return null;
 
-    List<Features> features = jsonRes['features'] is List ? [] : null;
+    List<Features?>? features = jsonRes['features'] is List ? [] : null;
     if (features != null) {
       for (var item in jsonRes['features']) {
         if (item != null) {
@@ -45,16 +45,16 @@ class MapRoot {
 
 class Features {
   String type;
-  Properties properties;
-  Geometry geometry;
+  Properties? properties;
+  Geometry? geometry;
 
   Features({
-    this.type,
-    this.properties,
-    this.geometry,
+   required this.type,
+   required this.properties,
+   required this.geometry,
   });
 
-  static Features fromJson(jsonRes) => jsonRes == null
+  static Features? fromJson(jsonRes) => jsonRes == null
       ? null
       : Features(
           type: jsonRes['type'],
@@ -77,32 +77,32 @@ class Features {
 class Properties {
   String adcode;
   String name;
-  List<double> center;
-  List<double> centroid;
+  List<double>? center;
+  List<double>? centroid;
   int childrenNum;
   String level;
-  Parent parent;
+  Parent? parent;
   int subFeatureIndex;
-  List<int> acroutes;
+  List<int>? acroutes;
   Object adchar;
 
   Properties({
-    this.adcode,
-    this.name,
-    this.center,
-    this.centroid,
-    this.childrenNum,
-    this.level,
-    this.parent,
-    this.subFeatureIndex,
-    this.acroutes,
-    this.adchar,
+   required this.adcode,
+   required this.name,
+   required this.center,
+   required this.centroid,
+   required this.childrenNum,
+   required this.level,
+   required this.parent,
+   required this.subFeatureIndex,
+   required this.acroutes,
+   required this.adchar,
   });
 
-  static Properties fromJson(jsonRes) {
+  static Properties? fromJson(jsonRes) {
     if (jsonRes == null) return null;
 
-    List<double> center = jsonRes['center'] is List ? [] : null;
+    List<double>? center = jsonRes['center'] is List ? [] : null;
     if (center != null) {
       for (var item in jsonRes['center']) {
         if (item != null) {
@@ -111,7 +111,7 @@ class Properties {
       }
     }
 
-    List<double> centroid = jsonRes['centroid'] is List ? [] : null;
+    List<double>? centroid = jsonRes['centroid'] is List ? [] : null;
     if (centroid != null) {
       for (var item in jsonRes['centroid']) {
         if (item != null) {
@@ -120,7 +120,7 @@ class Properties {
       }
     }
 
-    List<int> acroutes = jsonRes['acroutes'] is List ? [] : null;
+    List<int>? acroutes = jsonRes['acroutes'] is List ? [] : null;
     if (acroutes != null) {
       for (var item in jsonRes['acroutes']) {
         if (item != null) {
@@ -165,10 +165,10 @@ class Parent {
   int adcode;
 
   Parent({
-    this.adcode,
+   required this.adcode,
   });
 
-  static Parent fromJson(jsonRes) => jsonRes == null
+  static Parent? fromJson(jsonRes) => jsonRes == null
       ? null
       : Parent(
           adcode: jsonRes['adcode'],
@@ -189,14 +189,14 @@ class Geometry {
   List<List<List<Offset>>> coordinates;
 
   Geometry({
-    this.type,
-    this.coordinates,
+   required this.type,
+   required this.coordinates,
   });
 
-  static Geometry fromJson(jsonRes) {
+  static Geometry? fromJson(jsonRes) {
     if (jsonRes == null) return null;
 
-    List<List<List<Offset>>> coordinates =
+    List<List<List<Offset>>>? coordinates =
         jsonRes['coordinates'] is List ? [] : null;
 
     bool fourLever =false;
@@ -255,7 +255,7 @@ class Geometry {
 
     return Geometry(
       type: jsonRes['type'],
-      coordinates: coordinates,
+      coordinates: coordinates??[],
     );
   }
 

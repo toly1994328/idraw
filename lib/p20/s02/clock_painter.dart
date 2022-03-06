@@ -9,7 +9,7 @@ import 'clock_manage.dart';
 class ClockPainter extends CustomPainter {
   final ClockManage manage;
 
-  ClockPainter({this.manage}) : super(repaint: manage);
+  ClockPainter({required this.manage}) : super(repaint: manage);
 
   Paint clockPaint = Paint();
 

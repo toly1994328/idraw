@@ -16,7 +16,7 @@ class Paper extends StatefulWidget {
 }
 
 class _PaperState extends State<Paper> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {

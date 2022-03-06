@@ -10,25 +10,25 @@ final Color transparent = Color.fromARGB(0, 0, 0, 0);
 
 abstract class ClockFx with ChangeNotifier {
   /// 可用画板宽度
-  double width;
+  double width = 0;
 
   /// 可用画板盖度
-  double height;
+  double height = 0;
 
   /// 宽高最小值
-  double sizeMin;
+  double sizeMin = 0;
 
   /// 画板中心
-  Offset center;
+  Offset center = Offset.zero;
 
   /// 产生新粒子的区域
-  Rect spawnArea;
+  Rect spawnArea = Rect.zero;
 
   /// 绘制时的颜色集
-  Palette palette;
+  Palette? palette;
 
   /// 粒子集合
-  List<Particle> particles;
+  late List<Particle> particles;
 
   /// 最大粒子数
   int numParticles;
@@ -37,13 +37,14 @@ abstract class ClockFx with ChangeNotifier {
   DateTime time;
 
   ClockFx({
-    @required Size size,
-    @required DateTime time,
+    required Size size,
+    required this.time,
     this.numParticles = 5000,
   }) {
     this.time = time;
 
-    particles = List<Particle>(numParticles);
+    particles = [];
+    // growableList.length = 3;
     palette = Palette(components: [transparent, transparent]);
     setSize(size);
   }
@@ -52,7 +53,7 @@ abstract class ClockFx with ChangeNotifier {
   void init() {
     if (palette == null) return;
     for (int i = 0; i < numParticles; i++) {
-      var color = Rnd.getItem(palette.components);
+      var color = Rnd.getItem(palette!.components);
       particles[i] = Particle(color: color);
       resetParticle(i);
     }

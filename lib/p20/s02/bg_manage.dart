@@ -11,8 +11,8 @@ import 'res.dart';
 /// 说明:
 
 class BgManage with ChangeNotifier {
-  List<Particle> particles;
-  DateTime datetime; // 时间
+  late List<Particle> particles;
+  late DateTime datetime; // 时间
   Random random = Random();
 
   /// 粒子列表
@@ -21,7 +21,7 @@ class BgManage with ChangeNotifier {
   /// 最大粒子数
   Size size; // 尺寸
 
-  BgManage({this.size, this.numParticles = 500}) {
+  BgManage({required this.size, this.numParticles = 500}) {
     particles = [];
     datetime = DateTime.now();
   }

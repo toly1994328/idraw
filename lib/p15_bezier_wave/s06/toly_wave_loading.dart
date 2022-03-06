@@ -1,10 +1,7 @@
-  import 'dart:math';
-import 'dart:ui';
+  import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-import '../coordinate_pro.dart';
 
 /// create by 张风捷特烈 on 2020/5/1
 /// contact me by email 1981462002@qq.com
@@ -38,17 +35,18 @@ class TolyWaveLoading extends StatefulWidget {
 
   final Curve curve;
 
-  TolyWaveLoading({Key key,
-    this.waveHeight = 5,
-    this.progress = 0.5,
-    this.duration =const Duration(seconds: 1),
-    this.size = const Size(100, 100),
-    this.color = Colors.green,
-    this.secondAlpha = 88,
-    this.strokeWidth = 3,
-    this.curve = Curves.linear,
-    this.borderRadius = 20,
-    this.isOval = false})
+  TolyWaveLoading(
+      {Key? key,
+      this.waveHeight = 5,
+      this.progress = 0.5,
+      this.duration = const Duration(seconds: 1),
+      this.size = const Size(100, 100),
+      this.color = Colors.green,
+      this.secondAlpha = 88,
+      this.strokeWidth = 3,
+      this.curve = Curves.linear,
+      this.borderRadius = 20,
+      this.isOval = false})
       : super(key: key);
 
   @override
@@ -57,7 +55,7 @@ class TolyWaveLoading extends StatefulWidget {
 
 class _TolyWaveLoadingState extends State<TolyWaveLoading>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -66,7 +64,6 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
       duration: widget.duration,
       vsync: this,
     )..repeat();
-
   }
 
   @override
@@ -95,9 +92,16 @@ class _TolyWaveLoadingState extends State<TolyWaveLoading>
 class PaperPainter extends CustomPainter {
   final Animation<double> repaint;
 
-  PaperPainter({this.repaint, this.waveHeight, this.color,
-    this.progress, this.secondAlpha, this.borderRadius, this.isOval,
-    this.strokeWidth}) : super(repaint: repaint);
+  PaperPainter({
+    required this.repaint,
+    required this.waveHeight,
+    required this.color,
+    required this.progress,
+    required this.secondAlpha,
+    required this.borderRadius,
+    required this.isOval,
+    required  this.strokeWidth,
+  }) : super(repaint: repaint);
 
   final double waveHeight;
   final double progress;

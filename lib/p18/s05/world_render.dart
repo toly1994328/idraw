@@ -17,7 +17,7 @@ class WorldRender extends CustomPainter {
     ..strokeWidth = 0.5
     ..style = PaintingStyle.stroke;
 
-  WorldRender({this.manage}) : super(repaint: manage);
+  WorldRender({required this.manage}) : super(repaint: manage);
 
   @override
   void paint(Canvas canvas, Size size) {

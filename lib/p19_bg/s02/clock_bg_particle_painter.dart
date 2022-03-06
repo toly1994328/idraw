@@ -7,7 +7,7 @@ import 'clock_fx.dart';
 class ClockBgParticlePainter extends CustomPainter {
   ClockFx fx;
 
-  ClockBgParticlePainter({@required this.fx}) : super(repaint: fx);
+  ClockBgParticlePainter({required this.fx}) : super(repaint: fx);
 
   @override
   void paint(Canvas canvas, Size size) {

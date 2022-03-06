@@ -19,7 +19,7 @@ class World extends StatefulWidget {
 }
 
 class _WorldState extends State<World> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+ late AnimationController _controller;
   ParticleManage pm = ParticleManage();
 
   @override

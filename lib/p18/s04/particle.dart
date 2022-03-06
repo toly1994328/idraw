@@ -40,14 +40,14 @@ class Particle {
   });
 
   Particle copyWith(
-  {double x,
-    double y,
-    double ax,
-    double ay,
-    double vx,
-    double vy,
-    double size,
-    Color color}
+  { double? x,
+    double? y,
+    double? ax,
+    double? ay,
+    double? vx,
+    double? vy,
+    double? size,
+    Color? color}
   ) =>
       Particle(
           x: x ?? this.x,

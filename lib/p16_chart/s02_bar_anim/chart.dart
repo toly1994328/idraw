@@ -15,7 +15,7 @@ class ICharts extends StatefulWidget {
 
 class _IChartsState extends State<ICharts> with SingleTickerProviderStateMixin{
 
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class ChartPainter extends CustomPainter {
 
   double maxData = 0; // 数据最大值
 
-  ChartPainter({this.repaint}):super(repaint: repaint) {
+  ChartPainter({required this.repaint}):super(repaint: repaint) {
     maxData = yData.reduce(max);
   }
 

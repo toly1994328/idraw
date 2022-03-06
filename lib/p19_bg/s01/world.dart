@@ -17,14 +17,14 @@ import 'world_render.dart';
 class World extends StatefulWidget {
   final Size size;
 
-  World({Key key, this.size}) : super(key: key);
+  World({Key? key,required this.size}) : super(key: key);
 
   @override
   _WorldState createState() => _WorldState();
 }
 
 class _WorldState extends State<World> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   ParticleManage pm = ParticleManage();
   Random random = Random();
 
@@ -84,9 +84,7 @@ class _WorldState extends State<World> with SingleTickerProviderStateMixin {
   //读取 assets 中的图片
   void loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    pm.setImage(await decodeImageFromList(bytes));
+    pm.setImage(await decodeImageFromList(data.buffer.asUint8List()));
   }
 
   void initParticles() {

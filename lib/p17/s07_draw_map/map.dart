@@ -15,7 +15,7 @@ class _ChinaMapState extends State<ChinaMap> {
       'https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json'; //全国点位详细信息
 
   //请求点位信息地址
-  Future<MapRoot> getMapRoot() async {
+  Future<MapRoot?> getMapRoot() async {
     try {
       final Response response = await Dio().get(url);
       if (response.data != null) {
@@ -29,7 +29,7 @@ class _ChinaMapState extends State<ChinaMap> {
     }
   }
 
-  Future<MapRoot> _future;
+  late Future<MapRoot?> _future;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _ChinaMapState extends State<ChinaMap> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<MapRoot>(
+    return FutureBuilder<MapRoot?>(
       future: _future,
       builder: (context, async) {
         print(async.hasData);
@@ -57,13 +57,13 @@ class _ChinaMapState extends State<ChinaMap> {
 }
 
 class MapPainter extends CustomPainter {
-  final MapRoot mapRoot; //点位信息
+  final MapRoot? mapRoot; //点位信息
 
-  Paint _paint;
+  late Paint _paint;
   final List<Color> colors = [Colors.red, Colors.yellow, Colors.blue, Colors.green];
   int colorIndex = 0;
 
-  MapPainter({this.mapRoot}) {
+  MapPainter({required this.mapRoot}) {
     _paint = Paint()
       ..strokeWidth = 0.1
       ..isAntiAlias = true;
@@ -71,12 +71,15 @@ class MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if(mapRoot == null) return;
+    if(mapRoot!.features ==null) return;
 
     canvas.clipRect(
         Rect.fromPoints(Offset.zero, Offset(size.width, size.height)));
     canvas.translate(size.width / 2, size.height / 2);
-    canvas.translate(-mapRoot.features[0].geometry.coordinates[0][0][0].dx,
-        -mapRoot.features[0].geometry.coordinates[0][0][0].dy);
+    double dx = mapRoot!.features![0]?.geometry?.coordinates[0][0][0].dx??0;
+    double dy = mapRoot!.features![0]?.geometry?.coordinates[0][0][0].dy??0;
+    canvas.translate( -dx, -dy);
 
     double rate = 0.65;
 
@@ -89,16 +92,17 @@ class MapPainter extends CustomPainter {
 
   void _drawMap(Canvas canvas, Size size) {
     //全国省份循环
-    for (int i = 0; i < mapRoot.features.length; i++) {
-      var features = mapRoot.features[i];
+    for (int i = 0; i < mapRoot!.features!.length; i++) {
+      var features = mapRoot!.features![i];
+      if(features ==null) return;
       PaintingStyle style;
       Color color;
       Path path = Path();
-      if (features.properties.name == "台湾省" ||
-          features.properties.name == "海南省" ||
-          features.properties.name == "河北省" ||
-          features.properties.name == "") { //海南和台湾和九段线
-        features.geometry.coordinates.forEach((List<List<Offset>> lv3) {
+      if (features.properties?.name == "台湾省" ||
+          features.properties?.name == "海南省" ||
+          features.properties?.name == "河北省" ||
+          features.properties?.name == "") { //海南和台湾和九段线
+        features.geometry?.coordinates.forEach((List<List<Offset>> lv3) {
           lv3.forEach((List<Offset> lv2) {
             path.moveTo(lv2[0].dx, lv2[0].dy);
             lv2.forEach((Offset lv1) {
@@ -107,7 +111,7 @@ class MapPainter extends CustomPainter {
           });
         });
 
-        if (features.properties.name == "") {
+        if (features.properties?.name == "") {
           style = PaintingStyle.stroke;
           color = Colors.black;
         } else {
@@ -116,9 +120,11 @@ class MapPainter extends CustomPainter {
         }
         colorIndex++;
       } else {
-        final Offset first = features.geometry.coordinates[0][0][0];
+
+        final Offset first = features.geometry?.coordinates[0][0][0]??Offset.zero;
         path.moveTo(first.dx, first.dy);
-        for (Offset d in features.geometry.coordinates.first.first) {
+        if(features.geometry ==null) return;
+        for (Offset d in features.geometry!.coordinates.first.first) {
           path.lineTo(d.dx, d.dy);
         }
         style = PaintingStyle.fill;

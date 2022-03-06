@@ -18,9 +18,9 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> with SingleTickerProviderStateMixin{
-  BgFx _bgFx;
-  Ticker _ticker;
-  Palette _palette;
+  late BgFx _bgFx;
+  late Ticker _ticker;
+  Palette? _palette;
 
   @override
   void initState() {
@@ -53,8 +53,9 @@ class _ScreenState extends State<Screen> with SingleTickerProviderStateMixin{
 
   void _init() async{
     List<Palette> palettes = await _loadPalettes();
-    _palette =  palettes[4];
-    _bgFx.setPalette(_palette);
+    _palette = palettes[4];
+    if(_palette==null) return;
+    _bgFx.setPalette(_palette!);
     setState(() {
 
     });

@@ -23,10 +23,10 @@ class ClockPanel extends StatefulWidget {
 
 class _ClockPanelState extends State<ClockPanel>
     with SingleTickerProviderStateMixin {
-  Ticker _ticker;
-  ClockManage pm;
+  late Ticker _ticker;
+  late ClockManage pm;
 
-  BgManage bgManage;
+  late BgManage bgManage;
 
   @override
   void initState() {
