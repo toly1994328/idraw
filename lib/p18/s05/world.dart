@@ -79,7 +79,8 @@ class _WorldState extends State<World> with SingleTickerProviderStateMixin {
   void initParticles() async {
     ByteData data = await rootBundle.load("assets/images/flutter.png");
     List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    image.Image imageSrc = image.decodeImage(bytes);
+    image.Image? imageSrc = image.decodeImage(bytes);
+    if(imageSrc==null) return;
 
     double offsetX=  (pm.size.width-imageSrc.width)/2;
     double offsetY=  (pm.size.height-imageSrc.height)/2;

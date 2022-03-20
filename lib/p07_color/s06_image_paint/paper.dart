@@ -54,7 +54,7 @@ class _PaperState extends State<Paper> {
   }
 
   //读取 assets 中的图片
-  Future<image.Image> loadImageFromAssets(String path) async {
+  Future<image.Image?> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
     List<int> bytes = data.buffer.asUint8List();
     return image.decodeImage(bytes);
