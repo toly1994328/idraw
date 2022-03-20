@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:idraw/extra_02_svg/02/svg_utils.dart';
+import 'package:idraw/extra_02_svg/svg_parser/svg_utils.dart';
 
-import 'svg_parser.dart';
+import '../svg_parser/svg_parser.dart';
 
 void main() {
   runApp(MyApp());

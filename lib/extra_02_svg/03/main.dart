@@ -1,7 +1,12 @@
-import 'package:flutter/material.dart';
-
-import 'svg_parser.dart';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:idraw/extra_02_svg/svg_parser/svg_utils.dart';
+
+import '../svg_parser/svg_parser.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -15,67 +20,72 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: CustomPaint(
-            size: Size(137, 28),
-            painter: SVGTestPainter(),
-          ),
+          child: HomePage(),
         ),
       ),
     );
   }
 }
 
-//
-// class SVGPathResult{
-//   final Color color;
-//   final Path path;
-//
-//   SVGPathResult({required this.color, required this.path});
-// }
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  ui.Image? _img;
+
+  bool get hasImage => _img != null;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImage();
+  }
+
+  void _loadImage() async {
+    _img = await loadImageFromAssets('assets/images/bg.jpeg');
+    setState(() {});
+  }
+
+  //读取 assets 中的图片
+  Future<ui.Image>? loadImageFromAssets(String path) async {
+    ByteData data = await rootBundle.load(path);
+    return decodeImageFromList(data.buffer.asUint8List());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return hasImage
+        ? CustomPaint(
+            size: Size(137, 28),
+            painter: SVGTestPainter(_img!),
+          )
+        : const SizedBox.shrink();
+  }
+}
 
 class SVGTestPainter extends CustomPainter {
+  final ui.Image img;
+
+  SVGTestPainter(this.img);
+
   final SVGParser svgParser = SVGParser();
 
-  // RegExp regExp = RegExp(r'[M,H,V,L]((\d+\.\d+)( )?)+');
-  // List<RegExpMatch> results = regExp.allMatches(src).toList();
-  // results.forEach((element) {
-  // print(element.group(0));
-  // });
+  Paint mainPaint = Paint();
 
-  //<path d="M17.5865 17.3955H17.5902L28.5163 8.77432L25.5528 6.39453L17.5902 12.6808H17.5865L17.5828 12.6845L9.62018 6.40201L6.6604 8.78181L17.5828 17.3992L17.5865 17.3955Z" fill="#1E80FF"/>
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Colors.grey.withOpacity(0.3);
-    // canvas.drawRect(Offset.zero & size, paint);
     String src1 =
         """<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M28,2 L43,2 12,32 4,25" fill="#3AD0FF" />
     <path d="M16,36 L30,48 44,48 23,29" fill="#00559E" />
     <path d="M16,36 L28,24 42,24 24,43" fill="#3AD0FF" />
 </svg>
-""";    String src3 =
-        """
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg t="1646998306167" class="icon" viewBox="0 0 1024 1024" version="1.1"
-    xmlns="http://www.w3.org/2000/svg" p-id="2700" width="128" height="128">
-    <defs>
-        <style type="text/css"></style>
-    </defs>
-    <path
-        d="M304.064985 471.748923l201.885538-88.186092 203.776 88.182154-17.636431 70.561477v176.368246l-176.376123 47.092184-194.008615-47.092184v-176.368246z"
-        fill="#96DD5D" p-id="2701"></path>
-    <path
-        d="M181.169231 464.738462v358.4l327.061661 78.76923L834.953846 821.937231v-365.075693L787.692308 480.492308V783.753846l-279.461416 70.892308L228.430769 783.753846v-311.138461z"
-        fill="#000000" p-id="2702"></path>
-    <path
-        d="M551.384615 169.353846l417.476923 181.169231c38.959262 24.000985 37.643815 46.316308-3.938461 66.953846l-456.861539 185.107692-445.046153-181.16923c-55.0912-21.137723-56.398769-47.391508-3.938462-78.769231l409.6-173.292308c28.408123-11.945354 55.977354-11.945354 82.707692 0z m-6.293661 47.643569c-22.724923-10.149415-46.158769-10.149415-70.301539 0l-348.16 143.36c-46.993723 10.791385-45.879138 25.237662 3.347693 43.327016l378.28923 146.116923 388.332308-149.468554c39.569723-8.644923 40.684308-19.739569 3.347692-33.28l-354.7136-149.996308z"
-        fill="#000000" p-id="2703"></path>
-    <path
-        d="M47.261538 370.215385a23.630769 23.630769 0 0 1 23.63077 23.630769v291.446154a23.630769 23.630769 0 0 1-47.261539 0v-291.446154a23.630769 23.630769 0 0 1 23.630769-23.630769z"
-        fill="#000000" p-id="2704"></path>
-</svg>
 """;
+
     String src = """
 <svg width="137" height="28" viewBox="0 0 137 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17.5865 17.3955H17.5902L28.5163 8.77432L25.5528 6.39453L17.5902 12.6808H17.5865L17.5828 12.6845L9.62018 6.40201L6.6604 8.78181L17.5828 17.3992L17.5865 17.3955Z" fill="#1E80FF"/>
@@ -95,132 +105,25 @@ class SVGTestPainter extends CustomPainter {
 </svg>
 """;
 
-    var colors = [
-      Color(0xFFF60C0C),
-      Color(0xFFF3B913),
-      Color(0xFFE7F716),
-      Color(0xFF3DF30B),
-      Color(0xFF0DF6EF),
-      Color(0xFF0829FB),
-      Color(0xFFB709F4),
-    ];
+    Matrix4 matrix4 = Matrix4.diagonal3Values(0.1, 0.1, 1)
+        .multiplied(Matrix4.translationValues(70, 10, 0));
+    mainPaint.shader = ImageShader(
+      img,
+      TileMode.repeated,
+      TileMode.repeated,
+      matrix4.storage,
+    );
 
-    var pos = [1.0 / 7, 2.0 / 7, 3.0 / 7, 4.0 / 7, 5.0 / 7, 6.0 / 7, 1.0];
-
-    Paint mainPaint = Paint();
-
-    // mainPaint.shader = ui.Gradient.linear(
-    //     Offset(0, 0), Offset(137, 0), colors, pos, TileMode.clamp);
-    mainPaint.maskFilter=MaskFilter.blur(BlurStyle.inner, 10);
     List<SVGPathResult?> parserResults = svgParser.parser(src);
     parserResults.forEach((SVGPathResult? result) {
       if (result == null) return;
       if (result.path != null) {
-        Path path = formPathFromSvgPath(result.path!);
-        setPainterByParserResult(result, mainPaint);
-        canvas.drawPath(path, mainPaint..style=PaintingStyle.fill );
-        canvas.drawPath(path, mainPaint..style=PaintingStyle.stroke );
+        Path path = SvgUtils.convertFromSvgPath(result.path!);
+        result.setPaint(mainPaint);
+        canvas.drawPath(path, mainPaint);
       }
     });
-  }
 
-  void setPainterByParserResult(SVGPathResult result, Paint paint) {
-    if (result.strokeColor != null) {
-      paint..style = PaintingStyle.stroke;
-      Color resultColor = Color(
-          int.parse(result.strokeColor!.substring(1), radix: 16) + 0xFF000000);
-      paint..color = resultColor;
-    }
-    if (result.strokeWidth != null) {
-      paint..strokeWidth = num.parse(result.strokeWidth!).toDouble();
-    }
-    if (result.fillColor != null) {
-      paint..style = PaintingStyle.fill;
-      Color resultColor = Color(
-          int.parse(result.fillColor!.substring(1), radix: 16) + 0xFF000000);
-      paint..color = resultColor;
-    }
-  }
-
-  Path formPathFromSvgPath(String src) {
-    Path path = Path();
-    RegExp regExp = RegExp(r'[M,H,V,L,C,Q](((\d+\.\d+)|\d)([ ,])?)+|Z');
-    List<RegExpMatch> results = regExp.allMatches(src).toList();
-
-    double lastX = 0;
-    double lastY = 0;
-    results.forEach((RegExpMatch element) {
-      String? op = element.group(0);
-      if (op != null) {
-        if (op.startsWith("M")) {
-          List<String> pos = op.substring(1).split(RegExp(r'[, ]'));
-          double dx = num.parse(pos[0]).toDouble();
-          double dy = num.parse(pos[1]).toDouble();
-          path.moveTo(dx, dy);
-          lastX = dx;
-          lastY = dy;
-        }
-        if (op.startsWith("L")) {
-          List<String> pos = op.substring(1).split(RegExp(r'[, ]'));
-          for (int i = 0; i < pos.length; i += 2) {
-            double dx = num.parse(pos[i]).toDouble();
-            double dy = num.parse(pos[i + 1]).toDouble();
-            path.lineTo(dx, dy);
-            lastX = dx;
-            lastY = dy;
-          }
-        }
-        if (op.startsWith("H")) {
-          List<String> pos = op.substring(1).trim().split(RegExp(r'[, ]'));
-          for (int i = 0; i < pos.length; i++) {
-            double dx = num.parse(pos[i]).toDouble();
-            double dy = lastY;
-            path.lineTo(dx, dy);
-            lastX = dx;
-          }
-        }
-        if (op.startsWith("V")) {
-          List<String> pos = op.substring(1).trim().split(RegExp(r'[, ]'));
-          for (int i = 0; i < pos.length; i++) {
-            double dx = lastX;
-            double dy = num.parse(pos[i]).toDouble();
-            path.lineTo(dx, dy);
-            lastY = dy;
-          }
-        }
-        if (op.startsWith("C")) {
-          List<String> pos = op.substring(1).trim().split(RegExp(r'[, ]'));
-          for (int i = 0; i < pos.length; i += 6) {
-            double p0x = num.parse(pos[i]).toDouble();
-            double p0y = num.parse(pos[i + 1]).toDouble();
-            double p1x = num.parse(pos[i + 2]).toDouble();
-            double p1y = num.parse(pos[i + 3]).toDouble();
-            double p2x = num.parse(pos[i + 4]).toDouble();
-            double p2y = num.parse(pos[i + 5]).toDouble();
-            path.cubicTo(p0x, p0y, p1x, p1y, p2x, p2y);
-            lastX = p2x;
-            lastY = p2y;
-          }
-        }
-        if (op.startsWith("Q")) {
-          List<String> pos = op.substring(1).trim().split(RegExp(r'[, ]'));
-          for (int i = 0; i < pos.length; i += 4) {
-            double p0x = num.parse(pos[i]).toDouble();
-            double p0y = num.parse(pos[i + 1]).toDouble();
-            double p1x = num.parse(pos[i + 2]).toDouble();
-            double p1y = num.parse(pos[i + 3]).toDouble();
-            path.quadraticBezierTo(p0x, p0y, p1x, p1y);
-            lastX = p1x;
-            lastY = p1y;
-          }
-        }
-        if (op.startsWith("Z")) {
-          path.close();
-        }
-      }
-      // print(element.group(0));
-    });
-    return path;
   }
 
   @override

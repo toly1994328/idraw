@@ -1,4 +1,4 @@
-import 'svg_parser.dart';
+import '../svg_parser/svg_parser.dart';
 
 main(){
   String src = """

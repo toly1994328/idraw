@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:idraw/extra_02_svg/svg_parser/svg_utils.dart';
 
 import '../svg_parser/svg_parser.dart';
-import 'dart:ui' as ui;
+import '../svg_parser/svg_utils.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -16,31 +18,67 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: CustomPaint(
-            size: Size(137, 28),
-            painter: SVGTestPainter(),
-          ),
+          child: HomePage(),
         ),
       ),
     );
   }
 }
 
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+    _ctrl..forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        _ctrl.reset();
+        _ctrl.forward();
+      },
+      child: CustomPaint(
+        size: Size(137, 28),
+        painter: SVGTestPainter(
+          progress: _ctrl
+        ),
+      ),
+    );
+  }
+}
+
+//
+// class SVGPathResult{
+//   final Color color;
+//   final Path path;
+//
+//   SVGPathResult({required this.color, required this.path});
+// }
 
 class SVGTestPainter extends CustomPainter {
   final SVGParser svgParser = SVGParser();
 
+  final Animation progress;
+
+  SVGTestPainter({required this.progress}) : super(repaint: progress);
+
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Colors.grey.withOpacity(0.3);
-    // canvas.drawRect(Offset.zero & size, paint);
-    String src1 =
-        """<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M28,2 L43,2 12,32 4,25" fill="#3AD0FF" />
-    <path d="M16,36 L30,48 44,48 23,29" fill="#00559E" />
-    <path d="M16,36 L28,24 42,24 24,43" fill="#3AD0FF" />
-</svg>
-""";
+
     String src = """
 <svg width="137" height="28" viewBox="0 0 137 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17.5865 17.3955H17.5902L28.5163 8.77432L25.5528 6.39453L17.5902 12.6808H17.5865L17.5828 12.6845L9.62018 6.40201L6.6604 8.78181L17.5828 17.3992L17.5865 17.3955Z" fill="#1E80FF"/>
@@ -60,36 +98,22 @@ class SVGTestPainter extends CustomPainter {
 </svg>
 """;
 
-    var colors = [
-      Color(0xFFF60C0C),
-      Color(0xFFF3B913),
-      Color(0xFFE7F716),
-      Color(0xFF3DF30B),
-      Color(0xFF0DF6EF),
-      Color(0xFF0829FB),
-      Color(0xFFB709F4),
-    ];
-
-    var pos = [1.0 / 7, 2.0 / 7, 3.0 / 7, 4.0 / 7, 5.0 / 7, 6.0 / 7, 1.0];
-
+    List<SVGPathResult?> parserResults = svgParser.parser(src);
     Paint mainPaint = Paint();
 
-    // mainPaint.shader = ui.Gradient.linear(
-    //     Offset(0, 0), Offset(137, 0), colors, pos, TileMode.clamp);
-
-    mainPaint.maskFilter=MaskFilter.blur(BlurStyle.inner, 10);
-    List<SVGPathResult?> parserResults = svgParser.parser(src);
     parserResults.forEach((SVGPathResult? result) {
       if (result == null) return;
       if (result.path != null) {
         Path path = SvgUtils.convertFromSvgPath(result.path!);
         result.setPaint(mainPaint);
-        canvas.drawPath(path, mainPaint..style=PaintingStyle.fill );
-        canvas.drawPath(path, mainPaint..style=PaintingStyle.stroke );
+        PathMetrics pms = path.computeMetrics();
+        mainPaint.style = PaintingStyle.stroke;
+        pms.forEach((pm) {
+          canvas.drawPath(pm.extractPath(0, pm.length * progress.value), mainPaint);
+        });
       }
     });
   }
-
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
