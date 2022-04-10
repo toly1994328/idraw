@@ -228,16 +228,19 @@ class SvgUtils {
           for (int i = 0; i < pos.length; i += 7) {
             double a = num.parse(pos[i + 0]).toDouble();
             double b = num.parse(pos[i + 1]).toDouble();
-            double endX = num.parse(pos[i + 5]).toDouble();
-            double endY = num.parse(pos[i + 6]).toDouble();
             double rotation = num.parse(pos[i + 2]).toDouble() * pi / 180;
             bool largeArc = num.parse(pos[i + 3]).toDouble() == 1;
             bool clockwise = num.parse(pos[i + 4]).toDouble() == 1;
-            path.arcToPoint(Offset(endX, endY),
-                radius: Radius.elliptical(a, b),
-                rotation: rotation,
-                largeArc: largeArc,
-                clockwise: clockwise);
+            double endX = num.parse(pos[i + 5]).toDouble();
+            double endY = num.parse(pos[i + 6]).toDouble();
+
+            path.arcToPoint(
+              Offset(endX, endY), // 圆弧中心
+              radius: Radius.elliptical(a, b),// 圆弧长短半轴
+              rotation: rotation, // 圆弧旋转角度
+              largeArc: largeArc, // 是否是大圆弧
+              clockwise: clockwise, // 是否是顺时针
+            );
 
             lastX = endX;
             lastY = endY;

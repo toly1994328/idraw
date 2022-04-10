@@ -1,0 +1,55 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H100 V100 H0" fill="#FFFFFF" />
+
+    <path d="M30,20 Q70,10 80,40" stroke="#000082" />
+    <path d="M80,40 q-40,30 -10,40" stroke="#FF743D" />
+
+    <path d="M30,20 L70,10 80,40" stroke="blue" stroke-width="0.5" stroke-dasharray="1,1"/>
+    <path d="M80,40 L40,70 70,80" stroke="blue" stroke-width="0.5" stroke-dasharray="1,1"/>
+
+    <circle  cx="40" cy="70" r="2" style="fill:red"/>
+    <text x="15" y="72" font-size="5" fill="black">A (40,70)</text>
+
+    <circle  cx="70" cy="80" r="2" style="fill:red"/>
+    <text x="75" y="82" font-size="5" fill="black">B(70,80)</text>
+
+    <circle  cx="30" cy="20" r="2" style="fill:red"/>
+    <text x="32" y="18" font-size="5" fill="black">(30,20)</text>
+
+    <circle  cx="70" cy="10" r="2" style="fill:red"/>
+    <text x="73" y="12" font-size="5" fill="black">(70,10)</text>
+
+    <circle  cx="80" cy="40" r="2" style="fill:red"/>
+    <text x="82" y="42" font-size="5" fill="black">(80,40)</text>
+
+    <text x="5" y="90" font-size="5" font-weight="bold"  fill="#000082">M30,20 Q70,10 80,40</text>
+    <text x="5" y="96" font-size="5" font-weight="bold"  fill="#FF743D">M80,40 q-40,30 -10,40</text>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

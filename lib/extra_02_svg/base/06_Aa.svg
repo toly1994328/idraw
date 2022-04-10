@@ -1,0 +1,48 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H100 V100 H0" fill="#FFFFFF" />
+
+    <path d="M30,20 A20 20 0 1 1 50 50 a15 20 0 1 1 20 30" stroke="#000082" />
+    <path d="M30,20 A20 20 0 0 0 50 50 a15 20 0 0 0 20 30" stroke="#000082" stroke-width="0.5" stroke-dasharray="1,1"/>
+
+    <circle  cx="30" cy="20" r="2" style="fill:red"/>
+    <text x="32" y="25" font-size="5" fill="black">(30,20)</text>
+
+
+    <circle  cx="50" cy="50" r="2" style="fill:red"/>
+    <text x="53" y="54" font-size="5" fill="black">(50,50)</text>
+
+
+    <circle  cx="70" cy="80" r="2" style="fill:red"/>
+    <text x="74" y="82" font-size="5" fill="black">(70,80)</text>
+
+    <text x="5" y="90" font-size="5" font-weight="bold"  fill="#000082">M30,20 A20 20 0 1 1 50 50</text>
+    <text x="5" y="96" font-size="5" font-weight="bold"  fill="#000082">a15 20 0 1 1 20 30</text>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

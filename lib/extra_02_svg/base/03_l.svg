@@ -6,10 +6,10 @@
 
 
     <circle  cx="30" cy="40" r="2" style="fill:red"/>
-    <text x="32" y="42" font-size="5" fill="black">(30,40)</text>
+    <text x="32" y="38" font-size="5" fill="black">A (30,40)</text>
 
     <circle  cx="80" cy="60" r="2" style="fill:red"/>
-    <text x="85" y="62" font-size="5" fill="black">?</text>
+    <text x="85" y="62" font-size="5" fill="black">B ?</text>
 
     <circle  cx="30" cy="60" r="2" style="fill:red"/>
     <text x="23" y="62" font-size="5" fill="black">?</text>
