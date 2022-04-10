@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1648256076168" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="2692" width="128" height="128">
+    <defs>
+        <style type="text/css">@font-face { font-family: feedback-iconfont; src:
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"),
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"),
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype");
+            }
+        </style>
+    </defs>
+
+
+    <path
+        d="M749.1072 939.6224H260.608c-97.2288 0-176.384-79.104-176.384-176.384V291.328c0-97.2288 79.104-176.384 176.384-176.384h247.2448c14.1312 0 25.6 11.4688 25.6 25.6s-11.4688 25.6-25.6 25.6H260.608c-69.0176 0-125.184 56.1664-125.184 125.184v471.9104c0 69.0176 56.1664 125.184 125.184 125.184h488.4992c69.0176 0 125.184-56.1664 125.184-125.184v-233.6768c0-14.1312 11.4688-25.6 25.6-25.6s25.6 11.4688 25.6 25.6v233.6768c0 97.28-79.104 176.384-176.384 176.384z"
+        fill="#434A54" p-id="2697"></path>
+
+</svg>

@@ -1,0 +1,49 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H500 V500 H0" fill="#FFFFFF" />
+
+
+
+    <path d="M100,200 C100,100 250,100 250,200 S400,300 400,200" stroke="#6EFFEC" stroke-width="2"/>
+<!--    s-11 25.6-25 25-->
+<!--    S34 70 20 70-->
+    <path d="M100,200 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M100,100 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M250,100 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M250,200 h2 2" stroke="#FF4B50" stroke-width="6"/>
+
+
+<!--    <path d="M45 31 h2 2" stroke="#FF4B50" stroke-width="6"/>-->
+<!--    <path d="M45 45 h2 2" stroke="#FF4B50" stroke-width="6"/>-->
+<!--    <path d="M20,20 h2 2" stroke="#FF4B50" stroke-width="6"/>-->
+
+    <path d="M400,300 h2 2" stroke="#3641FF" stroke-width="6"/>
+    <path d="M250,300 h2 2" stroke="#3641FF" stroke-width="6"/>
+    <path d="M400,200 h2 2" stroke="#3641FF" stroke-width="6"/>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

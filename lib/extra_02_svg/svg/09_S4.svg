@@ -1,0 +1,42 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H128 V128 H0" fill="#FFFFFF" />
+
+
+
+    <path d="M20,20 C34 20 45 31 45 45 s-11 25.6-25 25" stroke="#6EFFEC" stroke-width="2"/>
+
+    <path d="M34,20 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M45 31 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M45 45 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M20,20 h2 2" stroke="#FF4B50" stroke-width="6"/>
+
+    <path d="M34 70 h2 2" stroke="#3641FF" stroke-width="6"/>
+    <path d="M20 70 h2 2" stroke="#3641FF" stroke-width="6"/>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+    "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1648255902128" class="icon" viewBox="0 0 1024 1024" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" p-id="2335" width="128" height="128">
+    <defs>
+        <style type="text/css">@font-face { font-family: feedback-iconfont; src:
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"),
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"),
+            url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype");
+            }
+        </style>
+    </defs>
+    <path
+        d="M232.2318 837.771156c-42.595646 49.751714-51.114775 167.486078-51.114774 167.486078h655.972941s9.88219-103.59261-46.85521-158.966949a185.376249 185.376249 0 0 0-104.955671-43.277176 a254.210813 254.210813 0 0 1-162.715366 55.37434 a339.061338 339.061338 0 0 1-190.658109-52.13707 a97.62922 97.62922 0 0 0-99.673811 31.520777z"
+        fill="#FFF385" p-id="2344"></path>
+</svg>

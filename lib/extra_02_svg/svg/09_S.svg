@@ -1,0 +1,47 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 H128 V128 H0" fill="#FFFFFF" />
+
+<!--    <path d="M30,50 a30 40 0 1 1 50 80" stroke="#7E4FFF" stroke-width="2"/>-->
+
+<!--    <path d="M50,50 l30 40 h-20 v30 h-10 L10 60" stroke="#7E4FFF" stroke-width="2"/>-->
+    <path d="M20,20  S40,80 80,50" stroke="#7E4FFF" stroke-width="2"/>
+
+
+    <path d="M20,20 Q40,80 80,50" stroke="#6EFFEC" stroke-width="2"/>
+
+
+    <path d="M20,20 c14 0 25 11 25 25 s-11 25.6-25 25" stroke="#6EFFEC" stroke-width="2"/>
+
+
+
+    <path d="M80,50 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M20,20 h2 2" stroke="#FF4B50" stroke-width="6"/>
+    <path d="M40,80 h2 2" stroke="#FF4B50" stroke-width="6"/>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
