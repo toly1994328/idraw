@@ -19,7 +19,6 @@ class Coordinate {
       this.gridColor = Colors.grey});
 
   final Paint _gridPaint = Paint();
-  final Path _gridPath = Path();
 
   void paint(Canvas canvas, Size size) {
     canvas.save();
@@ -51,28 +50,29 @@ class Coordinate {
   }
 
   void _drawGridLine(Canvas canvas, Size size) {
+    final Path path = Path();
     _gridPaint
       ..style = PaintingStyle.stroke
       ..strokeWidth = .5
       ..color = Colors.grey;
 
     for (int i = 0; i < size.width / 2 / step; i++) {
-      _gridPath.moveTo(step * i, -size.height / 2 );
-      _gridPath.relativeLineTo(0, size.height);
+      path.moveTo(step * i, -size.height / 2 );
+      path.relativeLineTo(0, size.height);
 
-      _gridPath.moveTo(-step * i, -size.height / 2 );
-      _gridPath.relativeLineTo(0, size.height);
+      path.moveTo(-step * i, -size.height / 2 );
+      path.relativeLineTo(0, size.height);
     }
 
     for (int i = 0; i < size.height / 2 / step; i++) {
-      _gridPath.moveTo(-size.width / 2,step * i );
-      _gridPath.relativeLineTo(size.width,0 );
+      path.moveTo(-size.width / 2,step * i );
+      path.relativeLineTo(size.width,0 );
 
-      _gridPath.moveTo(-size.width / 2,-step * i,  );
-      _gridPath.relativeLineTo(size.width,0 );
+      path.moveTo(-size.width / 2,-step * i,  );
+      path.relativeLineTo(size.width,0 );
     }
 
-    canvas.drawPath(_gridPath, _gridPaint);
+    canvas.drawPath(path, _gridPaint);
   }
 
   void _drawAxisText(Canvas canvas, String str,

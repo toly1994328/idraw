@@ -82,6 +82,7 @@ class PaperPainter extends CustomPainter {
   PaperPainter({ required this.repaint}) : super(repaint: repaint);
   List<Offset> pos = [];
 
+
   @override
   void paint(Canvas canvas, Size size) {
     coordinate.paint(canvas, size);

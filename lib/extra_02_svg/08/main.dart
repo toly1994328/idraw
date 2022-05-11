@@ -763,13 +763,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child:
-          // root!=null?CustomPaint(
-          //   painter: SVGTestPainter(
-          //       root!
-          //   ),
-          // ):const SizedBox()
-          SvgPicture.asset(
+          child: SvgPicture.asset(
               'assets/images/t.svg',
               semanticsLabel: 'Acme Logo'
           ),
@@ -783,7 +777,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
 
     });
-    // root.children.
   }
 }
 

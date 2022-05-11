@@ -48,21 +48,20 @@ class SvgUtils {
           double dx = num.parse(pos[0]).toDouble();
           double dy = num.parse(pos[1]).toDouble();
           path.moveTo(dx, dy);
-          sCtrl1X = dx;
-          sCtrl1Y = dy;
-
           lastX = dx;
           lastY = dy;
+          sCtrl1X = lastX;
+          sCtrl1Y = lastY;
         }
         if (op.startsWith("m")) {
           List<String> pos = op.substring(1).trim().split(splitExp);
           double dx = num.parse(pos[0]).toDouble();
           double dy = num.parse(pos[1]).toDouble();
           path.relativeMoveTo(dx, dy);
-          sCtrl1X = sCtrl1X+dx;
-          sCtrl1Y = sCtrl1Y+dy;
           lastX = dx+lastX;
           lastY = dy+lastY;
+          sCtrl1X = lastX;
+          sCtrl1Y = lastY;
         }
         if (op.startsWith("L")) {
           List<String> pos = op.substring(1).split(splitExp);
@@ -70,9 +69,10 @@ class SvgUtils {
             double dx = num.parse(pos[i]).toDouble();
             double dy = num.parse(pos[i + 1]).toDouble();
             path.lineTo(dx, dy);
-
             lastX = dx;
             lastY = dy;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("l")) {
@@ -81,10 +81,10 @@ class SvgUtils {
             double dx = num.parse(pos[i]).toDouble();
             double dy = num.parse(pos[i + 1]).toDouble();
             path.relativeLineTo(dx, dy);
-            sCtrl1X = sCtrl1X+dx;
-            sCtrl1Y = sCtrl1Y+dy;
             lastX = dx+lastX;
             lastY = dy+lastY;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("H")) {
@@ -94,6 +94,7 @@ class SvgUtils {
             double dy = lastY;
             path.lineTo(dx, dy);
             lastX = dx;
+            sCtrl1X = lastX;
           }
         }
         if (op.startsWith("h")) {
@@ -101,8 +102,8 @@ class SvgUtils {
           for (int i = 0; i < pos.length; i++) {
             double dx = num.parse(pos[i]).toDouble();
             path.relativeLineTo(dx, 0);
-            sCtrl1X = sCtrl1X+dx;
             lastX = lastX + dx;
+            sCtrl1X = lastX;
           }
         }
         if (op.startsWith("V")) {
@@ -112,6 +113,7 @@ class SvgUtils {
             double dy = num.parse(pos[i]).toDouble();
             path.lineTo(dx, dy);
             lastY = dy;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("v")) {
@@ -119,8 +121,8 @@ class SvgUtils {
           for (int i = 0; i < pos.length; i++) {
             double dy = num.parse(pos[i]).toDouble();
             path.relativeLineTo(0, dy);
-            sCtrl1Y = sCtrl1Y+dy;
             lastY = lastY+dy;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("C")) {
@@ -135,8 +137,6 @@ class SvgUtils {
             path.cubicTo(p0x, p0y, p1x, p1y, p2x, p2y);
             lastX = p2x;
             lastY = p2y;
-            //(x + x0)/2 = x1  ==> x = 2*x1 - x0
-            // (y + y0)/2 = y1  ==> y = 2*y1 - y0
             sCtrl1X = 2*p2x - p1x;
             sCtrl1Y = 2*p2y - p1y;
           }
@@ -151,13 +151,11 @@ class SvgUtils {
             double p2x = num.parse(pos[i + 4]).toDouble();
             double p2y = num.parse(pos[i + 5]).toDouble();
             path.relativeCubicTo(p0x, p0y, p1x, p1y, p2x, p2y);
-
             sCtrl1X = 2*p2x - p1x+lastX;
             sCtrl1Y = 2*p2y - p1y+lastY;
 
             lastX = p2x+lastX;
             lastY = p2y+lastY;
-
           }
         }
         if (op.startsWith("S")) {
@@ -208,6 +206,8 @@ class SvgUtils {
             path.quadraticBezierTo(p0x, p0y, p1x, p1y);
             lastX = p1x;
             lastY = p1y;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("q")) {
@@ -221,6 +221,8 @@ class SvgUtils {
 
             lastX = p1x+lastX;
             lastY = p1y+lastY;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("A")) {
@@ -244,6 +246,8 @@ class SvgUtils {
 
             lastX = endX;
             lastY = endY;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
         }
         if (op.startsWith("a")) {
@@ -264,6 +268,8 @@ class SvgUtils {
 
             lastX = endX+lastX;
             lastY = endY+lastY;
+            sCtrl1X = lastX;
+            sCtrl1Y = lastY;
           }
 
         }

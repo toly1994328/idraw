@@ -1,0 +1,84 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0,0 H100 V100 H0" fill="#FFFFFF" />
+
+<!--    <path d="M20,10 C20,10 40,70 80,50" stroke="#F619FF"/>-->
+<!--    <path d="M20,10 S40,70 80,50" stroke="#000082"/>-->
+<!--    <path d="M20,10 Q40,70 80,50" stroke="#FF743D"/>-->
+
+<path d="M10,40 Q30,60 50,40 T90,40" stroke="#000082" stroke-width="1"/>
+
+<path d="M10,40 L30,60z M30,60 L50,40z M50,40 L70,20 L90 40" stroke="blue" stroke-width="0.5" stroke-dasharray="1,1"/>
+
+<!--    -->
+
+<circle  cx="10" cy="40" r="2" style="fill:red"/>
+<text x="14" y="42" font-size="5" fill="black">(10,40)</text>
+
+<circle  cx="90" cy="40" r="2" style="fill:red"/>
+<text x="80" y="46" font-size="5" fill="black">(90,40)</text>
+
+<circle  cx="70" cy="20" r="2" style="fill:blue"/>
+<text x="60" y="15" font-size="5" fill="red" font-weight="bold" >Tp(?,?)</text>
+
+<circle  cx="30" cy="60" r="2" style="fill:red"/>
+<text x="18" y="68" font-size="5" fill="black">Qp(30,60)</text>
+
+<circle  cx="50" cy="40" r="2" style="fill:red"/>
+<text x="48" y="48" font-size="5" fill="black">(50,40)</text>
+
+
+<text x="5" y="95" font-size="5" font-weight="bold"  fill="#000082">M10,40 C20,10 40,10 50,40 S90,70 90,20</text>
+
+</svg>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
