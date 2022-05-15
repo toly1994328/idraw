@@ -64,26 +64,11 @@ class PathPainter extends CustomPainter {
     m4.multiply(back);
 
     path = path.transform(m4.storage);
-    double strokeWidth = 1;
-    Color color = Colors.blue;
+
     bool contains = path.contains(pos.value);
-    print(contains);
-    if (contains) {
-      color = Colors.orange;
-      strokeWidth = 2;
-    } else {
-      color = Colors.black;
-      strokeWidth = 1;
-    }
-
-    canvas.drawPath(
-        path,
-        paint
-          ..strokeWidth = strokeWidth
-          ..color = color);
-
-    // canvas.drawRect(Offset.zero & size,
-    //     Paint()..color = Color(0xff00fffc).withOpacity(0.1));
+    double strokeWidth = contains ? 2 : 1;
+    Color color = contains ? Colors.orange : Colors.black;
+    canvas.drawPath(path, paint..strokeWidth = strokeWidth..color = color);
 
     canvas.drawCircle(Offset(size.width / 2 + 20, size.height / 2 + 20), 2,
         Paint()..color = Colors.red);
@@ -92,7 +77,7 @@ class PathPainter extends CustomPainter {
   void drawHelp(Matrix4 m4, Matrix4 center, Matrix4 rotateM4, Matrix4 back,
       Path path, Canvas canvas) {
     Matrix4 m = m4.multiplied(center);
-    m.multiply(rotateM4);
+    m.multiplied(rotateM4);
     m.multiply(back);
     Path helpPath = path.transform(m.storage);
     dashPainter.paint(
