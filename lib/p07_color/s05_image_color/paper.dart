@@ -39,7 +39,7 @@ class _PaperState extends State<Paper> {
   Future<image.Image?> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
     List<int> bytes = data.buffer.asUint8List();
-    return image.decodeImage(bytes);
+    return image.decodeImage(Uint8List.fromList(bytes));
   }
 }
 
@@ -72,12 +72,8 @@ class PaperPainter extends CustomPainter {
 
   void _drawImage(Canvas canvas) {
     if (imageSrc == null)  return;
-      int colorInt = imageSrc!.getPixel(imageSrc!.width, 0);
-
-    var color = Color(colorInt);
-
-    canvas.drawCircle(Offset.zero, 10,
-        _paint..color =
-        Color.fromARGB(color.alpha, color.blue, color.green, color.red));
+    image.Pixel pixel = imageSrc!.getPixel(imageSrc!.width, 0);
+    var color = Color.fromARGB(pixel.a.toInt(),pixel.r.toInt(),pixel.g.toInt(),pixel.b.toInt());
+    canvas.drawCircle(Offset.zero, 10, _paint..color = color);
   }
 }

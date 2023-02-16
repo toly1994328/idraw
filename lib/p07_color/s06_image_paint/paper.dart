@@ -35,9 +35,9 @@ class _PaperState extends State<Paper> {
         ball.x = i * d + d / 2;
         ball.y = j * d + d / 2;
         ball.r = d / 2;
-        var color = Color(_image!.getPixel(i, j));
-        ball.color =
-            Color.fromARGB(color.alpha, color.blue, color.green, color.red);
+        image.Pixel pixel = _image!.getPixel(i, j);
+        var color = Color.fromARGB(pixel.a.toInt(),pixel.r.toInt(),pixel.g.toInt(),pixel.b.toInt());
+        ball.color = color;
         balls.add(ball);
       }
     }
@@ -57,7 +57,7 @@ class _PaperState extends State<Paper> {
   Future<image.Image?> loadImageFromAssets(String path) async {
     ByteData data = await rootBundle.load(path);
     List<int> bytes = data.buffer.asUint8List();
-    return image.decodeImage(bytes);
+    return image.decodeImage(Uint8List.fromList(bytes));
   }
 }
 
